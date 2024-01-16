@@ -37,7 +37,12 @@ Header {
 
 ul {
   list-style-type: none;
-  display: flex;
+  /* display: flex; */
+}
+
+.mix-list-item{
+border: 2px solid magenta;
+display: flex;
 }
 
 a {
