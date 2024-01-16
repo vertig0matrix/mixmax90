@@ -17,6 +17,10 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
 Header {
   max-width: 100%;
   display: flex;
@@ -40,11 +44,52 @@ ul {
   /* display: flex; */
 }
 
-.mix-list-item{
+.top-tracks-ul{
 border: 2px solid magenta;
-display: flex;
 }
 
+.top-tracks-li {
+  border: 2px solid green;
+  display: flex;  
+}
+
+.artist-search-ul{
+  border: 2px solid orangered;
+  max-width: 65%;
+}
+
+.artist-search-li{
+  border: 2px solid blue;
+  display: flex;
+  align-items: center;
+  /* height: 64px; */
+}
+
+.artist-search-thumb-container{
+  border: 2px solid orangered;
+  display: flex;
+  height: 64px;
+  width: 64px;
+  
+}
+.artist-search-thumb-img{
+  border: 1px solid green;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.artist-search-name{
+
+}
+.top-tracks-ul-title-container{
+  font-size: 28px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.top-tracks-ul-title-container-icon{
+  padding: .33rem;
+}
 a {
   text-decoration: none;
   font-size: x-large;

@@ -1,11 +1,20 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
+import { GoHeart } from "react-icons/go";
+import { TbReload } from "react-icons/tb";
 
-const Search = ({ search, setSearch }) => {
+const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrentTopTracks }) => {
   const [topTracks, setTopTracks] = useState([]);
   const [selectArtist, setSelectArtist] = useState([]);
   const [artistId, setArtistId] = useState(null);
+  const [showTopTracks, setShowTopTracks] = useState(false);
+
+  useEffect(() => {
+    console.log('loaded')
+    getCurrentTopTracks()
+    setTopTracks(currentTracks)
+  }, [])
 
   let accessToken = null;
   let artistName = search.replace(/\s+/g, "+");
@@ -48,14 +57,11 @@ const Search = ({ search, setSearch }) => {
       })    
   }
 
-
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
     console.log('ARTISTID', artistId)
       await getToken();
 
-    // const relatedArtistsUrl =
-    //   "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/related-artists";
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
 
     const relatedArtistsResponse = await fetch(relatedArtistsUrl, {
@@ -74,6 +80,8 @@ const Search = ({ search, setSearch }) => {
     const randomTracks = getRandomTracksByArtist(tracks);
     console.log("topTracks", randomTracks);
     setTopTracks(randomTracks);
+    // save to DB
+    addTopTrackstoDB(randomTracks)
   };
 
   const getArtistIds = (data) => {
@@ -137,34 +145,20 @@ const Search = ({ search, setSearch }) => {
 
     return result;
   }
-
-  //   const randomTracksByArtist = getRandomTrackByArtistId(TRACKS);
-
-  //  async function getRandomTracksByArtists(data) {
-  //   const artistTracksMap = {};
-
-  //   // Group tracks by unique artist IDs
-  //    data.tracks.forEach((track) => {
-  //     track.artists.forEach((artist) => {
-  //       const artistId = artist.id;
-  //       if (!artistTracksMap[artistId]) {
-  //         artistTracksMap[artistId] = [];
-  //       }
-  //       artistTracksMap[artistId].push(track);
-  //     });
-  //   });
-  //   // console.log('artistTracksMap', artistTracksMap )
-  //   // Get a random track for each artist
-  //   const randomTracks = Object.values(artistTracksMap).map((tracks) => {
-  //     const randomIndex = Math.floor(Math.random() * tracks.length);
-  //     return tracks[randomIndex];
-  //   });
-
-  //   return randomTracks;
-  // }
+  async function addTopTrackstoDB(tracks) {   
+     fetch("http://localhost:3000/toptracks", {
+       method: "POST",
+       mode: "cors",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(tracks),
+     });
+  }
 
   return (
     <div>
+
       <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
@@ -176,27 +170,80 @@ const Search = ({ search, setSearch }) => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button onClick={getArtistId} type="submit" id="submitButton">
-          {/* <button onClick={getRelatedArtistData} type="submit" id="submitButton"> */}
           <BsSearchHeart />
         </button>
       </form>
-      <ul>
+
+
+      <ul className="artist-search-ul">
         {selectArtist.map((artist, index) => (
-          <li onClick={()=>getRelatedArtistData(artist.id)} key={index}>
+          <li
+            className="artist-search-li"
+            onClick={() => {
+              setTopTracks([]);
+              // click creates 
+              getRelatedArtistData(artist.id);
+              setSelectArtist([]);
+              setShowTopTracks(true);
+            }}
+            key={index}
+          >
             {console.log(search)}
-            Name: {artist.name}
-            Id: {artist.id}            
+            <div className="artist-search-thumb-container">
+              {artist.images[2] && (
+                <img
+                  className="artist-search-thumb-img"
+                  src={artist.images[2].url}
+                  alt=""
+                />
+              )}
+            </div>
+            <div className="artist-search-name">{artist.name}</div>
+            {/* Id: {artist.id} */}
           </li>
         ))}
       </ul>
-      <ul>
-        {topTracks.map((track, index) => (
-          <li key={index}>
-            Name: {track.artists[0].name}
-            Song:{track.name}
-          </li>
-        ))}
-      </ul>
+
+
+      {showTopTracks && (
+        <ul className="top-tracks-ul">
+          <div className="top-tracks-ul-title-container">
+            <div
+              className="top-tracks-ul-title-container-icon"
+              onClick={() => {
+                setTopTracks([]);
+                getRelatedArtistData(artistId);
+                console.log()
+                setSelectArtist([]);
+                setShowTopTracks(true);
+              }}
+            >
+              <TbReload />
+            </div>
+            <div>TITLE</div>
+            <div className="top-tracks-ul-title-container-icon">
+              <GoHeart />
+            </div>
+            
+          </div>
+          {topTracks.map((track, index) => (
+            <li className="top-tracks-li" key={index}>
+             {/* { console.log('TRACK STRUCTURE',track)} */}
+              <div className="top-tracks-thumb-container">
+                {track.album.images[2] && (
+                  <img
+                    className="top-tracks-thumb-img"
+                    src={track.album.images[2].url}
+                    alt=""
+                  />
+                )}
+              </div>
+              Name: {track.artists[0].name}
+              Song:{track.name}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

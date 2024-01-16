@@ -6,7 +6,8 @@ router.get("/", (req, res) => {
   res.send("Hello sweetie!");
 });
 
-router.get("/collection", controller.getCollection);
+router.get("/toptracks", controller.getTopTracks);
+router.post("/toptracks", controller.addTopTracks);
 router.post("/collection", controller.addToCollection);
 // router.delete("/collection/:id", controller.updateItem);
 // router.delete("/collection/:id", controller.deleteItem);

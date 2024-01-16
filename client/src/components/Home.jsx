@@ -5,16 +5,23 @@ import SuggestionList from './SuggestionList';
 import MixList from './MixList'
 
 
-const Home = () => {
-   const [search, setSearch] = useState("");
+const Home = ({topTracks, setTopTracks, getCurrentTopTracks,currentTracks}) => {
+  const [search, setSearch] = useState("");
   return (
     <main>
       <div>Home</div>
-      <Search search={search} setSearch={setSearch} />
+      <Search
+        topTracks={topTracks}
+        setTopTracks={setTopTracks}
+        search={search}
+        setSearch={setSearch}
+        getCurrentTopTracks={getCurrentTopTracks}
+        currentTracks={currentTracks}
+      />
       <SuggestionList />
       <MixList />
     </main>
   );
-}
+};
 
 export default Home

@@ -1,14 +1,66 @@
-const Collection = require("./models");
+const TopTracks = require("./models");
 
-async function getCollection(req, res) {
+async function addTopTracks(req, res) {
   try {
-    const collection = await Collection.find();
-    res.status(200).json(collection);
-  } catch (err) {
+    // console.log("in post");
+    const tracks = req.body;
+    // console.log(tracks[0])
+    await TopTracks.deleteMany({})
+    const topTracks = await TopTracks.create({tracks}) // {tracks:tracks}
+     res.status(201).json({msg:'tracks added'});
+  } catch (error) {
+     console.error(error);
+     res.status(500).send("Internal Server Error");
+    }
+}  
+  
+async function getTopTracks(req, res) {
+  try {
+    console.log("in get");
+    // const tracks = res.body;
+    
+    // const newTopTracks = await TopTracks.find({ tracks }) // {tracks:tracks}
+    const newTopTracks = await TopTracks.find({ }) // {tracks:tracks}
+    res.send(newTopTracks)
+    console.log('in getTop',newTopTracks)
+    res.status(201)
+    // res.status(201).json({msg:'tracks added'});
+  } catch (error) {
+     console.error(error);
+     res.status(500).send("Internal Server Error");
+    }
+  }  
+  
+  async function reloadTopTracks() {
+    try {
+      //clicking 'reload' overwrites current mix collection
+    } catch (error) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send("Internal Server Error");    
   }
-}
+  }
+
+//in App.jsx funnction getCurrentMix
+  // const response = await fetch("http://localhost:3000/mix");
+  // const mix = await response.json();
+  // console.log(mix);
+  // setEvents(
+  //   events
+  //     .filter((event) => new Date(event.date) > new Date())
+  //     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  // );
+
+
+
+// async function getCollection(req, res) {
+//   try {
+//     const collection = await Collection.find();
+//     res.status(200).json(collection);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Internal Server Error");
+//   }
+// }
 
 async function addToCollection(req, res) {
   try {
@@ -29,4 +81,10 @@ async function updateItem() {}
 
 async function deleteItem() {}
 
-module.exports = { getCollection, addToCollection, deleteItem, updateItem };
+module.exports = { addTopTracks, getTopTracks, addToCollection, deleteItem, updateItem };
+
+// module.exports = { getCollection, addToCollection, deleteItem, updateItem };
+
+// search button adds mixModel - persist on refresh
+//reload button updates current mixmodel - persist on refresh
+// heart 
