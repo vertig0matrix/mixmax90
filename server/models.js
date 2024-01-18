@@ -4,7 +4,7 @@
 // TODO create models folder for document schema
 // TODO create file for each schema
 // TODO implement typescript
-
+// TODO create a new db link
 
 // const mongoose = require("mongoose");
 // const Schema = mongoose.Schema;
@@ -70,7 +70,7 @@ const albumSchema = new Schema({
   total_tracks: Number,
   type: String,
   uri: String,
-})  
+})
 
 const trackSchema = new Schema({
   album: { albumSchema },
