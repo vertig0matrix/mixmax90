@@ -57,7 +57,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrent
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('in getArtistId', data)
+        // console.log('in getArtistId', data)
         setSelectArtist(() => data.artists.items)
       })
     setSearch("");

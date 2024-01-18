@@ -2,12 +2,11 @@
 
 
 const express = require("express");
-const controller = require("./controller");
+const controller = require("./controllers/index.controller");
 
 const router = express.Router();
 
-router.get("/toptracks", controller.getTopTracks);
-router.post("/toptracks", controller.addTopTracks);
-router.post("/collection", controller.addToCollection);
+router.get("/toptracks", controller.getPlaylist);
+router.post("/toptracks", controller.savePlaylist);
 
 module.exports = router;

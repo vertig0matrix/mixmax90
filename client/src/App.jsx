@@ -20,7 +20,7 @@ function App () {
     try {
       const response = await fetch("http://localhost:3000/toptracks");
       const tracks = await response.json();
-      console.log('in getCurrent', tracks);
+      // console.log('in getCurrent', tracks);
       setCurrentTracks(tracks);
     } catch (error) {
       console.error(err);

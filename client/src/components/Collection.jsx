@@ -1,3 +1,5 @@
+// TODO add to collection
+
 import React from 'react'
 import Nav from './Nav'
 import CollectionList from './CollectionList'

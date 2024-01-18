@@ -1,0 +1,33 @@
+// TODO feature: logic to delete saved mixtape
+// TODO implement typescript
+// TODO fix: server overload issue on get 
+
+const TopTracks = require("../models/topTracksModel.models");
+
+async function getPlaylist(req, res) {
+  try {
+    const newTopTracks = await TopTracks.find({ }) // {tracks:tracks}
+    res.status(200).send(newTopTracks)
+  } catch (error) {
+     console.error(error);
+     res.status(500).send("Internal Server Error");
+    }
+};
+
+
+
+async function savePlaylist(req, res) {
+  try {
+    const tracks = req.body;
+    await TopTracks.create({tracks}) 
+     res.status(201).json({msg:'tracks added'});
+  } catch (error) {
+     console.error(error);
+     res.status(500).send("Internal Server Error");
+    }
+}; 
+  
+  
+
+module.exports = { savePlaylist, getPlaylist };
+
