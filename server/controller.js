@@ -8,11 +8,8 @@ const TopTracks = require("./models/topTracksModel.models");
 
 async function addTopTracks(req, res) {
   try {
-    // console.log("in post");
     const tracks = req.body;
-    // console.log(tracks[0])
-    await TopTracks.deleteMany({})
-    const topTracks = await TopTracks.create({tracks}) // {tracks:tracks}
+    await TopTracks.create({tracks}) // {tracks:tracks}
      res.status(201).json({msg:'tracks added'});
   } catch (error) {
      console.error(error);
@@ -35,17 +32,16 @@ async function getTopTracks(req, res) {
      console.error(error);
      res.status(500).send("Internal Server Error");
     }
-  }  
+}  
   
-  async function reloadTopTracks() {
+async function reloadTopTracks() {
     try {
       //clicking 'reload' overwrites current mix collection
     } catch (error) {
     console.error(err);
     res.status(500).send("Internal Server Error");    
   }
-  }
-
+}
 
 async function addToCollection(req, res) {
   try {
@@ -62,9 +58,6 @@ async function addToCollection(req, res) {
   }
 }
 
-async function updateItem() {}
 
-async function deleteItem() {}
-
-module.exports = { addTopTracks, getTopTracks, addToCollection, deleteItem, updateItem };
+module.exports = { addTopTracks, getTopTracks, addToCollection };
 
