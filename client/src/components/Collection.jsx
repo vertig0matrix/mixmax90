@@ -8,8 +8,7 @@ const Collection = () => {
   return (
     <main>
       <div className='collection-title'>Collection</div>
-    
-      <CollectionList/>
+      <CollectionList />
     </main>
   )
 }

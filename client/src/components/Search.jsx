@@ -8,16 +8,12 @@ import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
 
-const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrentTopTracks }) => {
+const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
   const [topTracks, setTopTracks] = useState([]);
   const [selectArtist, setSelectArtist] = useState([]);
   const [artistId, setArtistId] = useState(null);
   const [showTopTracks, setShowTopTracks] = useState(false);
   const [heartColor, setHeartColor] = useState("#eee");
-
-  useEffect(() => {
-    getCurrentTopTracks()
-  }, [])
 
   let accessToken = null;
 
