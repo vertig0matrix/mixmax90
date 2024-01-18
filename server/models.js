@@ -1,3 +1,11 @@
+// TODO delete unnecessary code / comments
+// TODO create models folder
+// TODO separate db initialiser from models
+// TODO create models folder for document schema
+// TODO create file for each schema
+
+
+
 // const mongoose = require("mongoose");
 // const Schema = mongoose.Schema;
 

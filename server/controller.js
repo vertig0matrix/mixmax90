@@ -1,3 +1,7 @@
+// TODO  delete commented code
+// TODO create contoller folder and routes folder
+// TODO separate routes and controller logic 
+
 const TopTracks = require("./models");
 
 async function addTopTracks(req, res) {
