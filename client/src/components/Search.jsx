@@ -1,3 +1,7 @@
+// TODO check the use/necessity of props in Search.jsx  
+// TODO create a util file for the functions
+// TODO abstract components from html
+
 import React from "react";
 import { useEffect, useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
@@ -16,10 +20,10 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrent
   }, [])
 
   let accessToken = null;
-  
+
   let artistName = search.replace(/\s+/g, "+");
   // let artistTitle = null
-  
+
 
   const getToken = async () => {
     const url = "https://accounts.spotify.com/api/token";
@@ -44,26 +48,26 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrent
   const getArtistId = async () => {
     await getToken();
     const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
-    console.log('SEARCHURL',searchUrl)
+    console.log('SEARCHURL', searchUrl)
     await fetch(searchUrl, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + `${accessToken}`,
       },
     })
-    .then((response) => response.json())
+      .then((response) => response.json())
       .then((data) => {
         console.log('in getArtistId', data)
-        setSelectArtist(()=>data.artists.items)
-      })  
+        setSelectArtist(() => data.artists.items)
+      })
     setSearch("");
-    
+
   }
 
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
     console.log('ARTISTID', artistId)
-      await getToken();
+    await getToken();
 
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
 
@@ -124,7 +128,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrent
     return topTracks;
   };
 
-  function getRandomTracksByArtist(tracks) {
+  function getRandomTracksByArtist (tracks) {
     const uniqueArtists = new Set();
     const result = [];
 
@@ -149,15 +153,15 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks, getCurrent
 
     return result;
   }
-  async function addTopTrackstoDB(tracks) {   
-     fetch("http://localhost:3000/toptracks", {
-       method: "POST",
-       mode: "cors",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(tracks),
-     });
+  async function addTopTrackstoDB (tracks) {
+    fetch("http://localhost:3000/toptracks", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tracks),
+    });
   }
 
   const heartClick = () => {

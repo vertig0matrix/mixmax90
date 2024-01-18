@@ -1,3 +1,5 @@
+// TODO rename 'main' tag
+
 import React from 'react'
 import { useState } from "react";
 import Search from './Search'
@@ -7,7 +9,7 @@ import Player from './Player';
 // import MixList from './MixList'
 
 
-const Home = ({topTracks, setTopTracks, getCurrentTopTracks,currentTracks}) => {
+const Home = ({ topTracks, setTopTracks, getCurrentTopTracks, currentTracks }) => {
   const [search, setSearch] = useState("");
   return (
     <main className='home-main'>
@@ -21,7 +23,7 @@ const Home = ({topTracks, setTopTracks, getCurrentTopTracks,currentTracks}) => {
         currentTracks={currentTracks}
       />
       <Collection />
-      
+
       {/* <Player/> */}
     </main>
   );
