@@ -1,3 +1,5 @@
+// TODO remove
+
 import React from 'react'
 
 const CollectionListItem = () => {
@@ -83,7 +85,7 @@ const CollectionListItem = () => {
                 <div className="coll-track">Zion Gate Dub</div>
                 <div className="coll-artist">King Tubby</div>
               </li>
-              
+
             </ul>
           </details>
         </li>
@@ -125,7 +127,7 @@ const CollectionListItem = () => {
                 <div className="coll-track">Zion Gate Dub</div>
                 <div className="coll-artist">King Tubby</div>
               </li>
-              
+
             </ul>
           </details>
         </li>
