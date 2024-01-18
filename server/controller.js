@@ -1,6 +1,8 @@
 // TODO  delete commented code
 // TODO create contoller folder and routes folder
 // TODO separate routes and controller logic 
+// TODO logic to delete saved mixtape
+// TODO implement typescript
 
 const TopTracks = require("./models");
 

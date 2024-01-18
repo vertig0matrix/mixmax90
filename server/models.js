@@ -3,7 +3,7 @@
 // TODO separate db initialiser from models
 // TODO create models folder for document schema
 // TODO create file for each schema
-
+// TODO implement typescript
 
 
 // const mongoose = require("mongoose");
