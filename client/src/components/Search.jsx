@@ -57,7 +57,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
     console.log('ARTISTID', artistId)
-    await getToken();
+    await getSpotifyToken();
 
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
 
