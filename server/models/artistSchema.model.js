@@ -1,3 +1,5 @@
+const { Schema } = require('mongoose');
+
 const artistSchema = new Schema({
     external_urls: {
         spotify: String,
@@ -9,4 +11,4 @@ const artistSchema = new Schema({
     uri: String,
 });
 
-module.exports = Artist;
+module.exports = artistSchema;

@@ -1,3 +1,5 @@
+const { Schema } = require('mongoose');
+
 const albumSchema = require('./albumSchema.model');
 const artistSchema = require('./artistSchema.model');
 

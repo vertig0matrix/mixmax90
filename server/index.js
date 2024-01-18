@@ -1,8 +1,5 @@
-// TODO delete dotenv and remove npm 
-// TODO use one section to connect to database and server
-// TODO create config env for sensitive data  
+
 // TODO implement typescript
-// TODO address git ignore
 
 
 const express = require("express");

@@ -4,7 +4,7 @@
 // TODO logic to delete saved mixtape
 // TODO implement typescript
 
-const TopTracks = require("./models");
+const TopTracks = require("./models/topTracksModel.models");
 
 async function addTopTracks(req, res) {
   try {
@@ -46,27 +46,6 @@ async function getTopTracks(req, res) {
   }
   }
 
-//in App.jsx funnction getCurrentMix
-  // const response = await fetch("http://localhost:3000/mix");
-  // const mix = await response.json();
-  // console.log(mix);
-  // setEvents(
-  //   events
-  //     .filter((event) => new Date(event.date) > new Date())
-  //     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-  // );
-
-
-
-// async function getCollection(req, res) {
-//   try {
-//     const collection = await Collection.find();
-//     res.status(200).json(collection);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Internal Server Error");
-//   }
-// }
 
 async function addToCollection(req, res) {
   try {
@@ -89,8 +68,3 @@ async function deleteItem() {}
 
 module.exports = { addTopTracks, getTopTracks, addToCollection, deleteItem, updateItem };
 
-// module.exports = { getCollection, addToCollection, deleteItem, updateItem };
-
-// search button adds mixModel - persist on refresh
-//reload button updates current mixmodel - persist on refresh
-// heart 
