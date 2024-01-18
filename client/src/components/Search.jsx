@@ -1,6 +1,7 @@
 // TODO check the use/necessity of props in Search.jsx  
 // TODO create a util file for the functions
 // TODO abstract components from html
+// TODO implement spotify login feature
 
 import React from "react";
 import { useEffect, useState } from "react";
@@ -18,33 +19,27 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
   let accessToken = null;
 
   let artistName = search.replace(/\s+/g, "+");
-  // let artistTitle = null
 
 
-  const getToken = async () => {
+  const getSpotifyToken = async () => {
     const url = "https://accounts.spotify.com/api/token";
     const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
     const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
-    // console.log('ID',client_id)
-    // console.log('SECRET', client_secret)
 
-    const response = await fetch(url, {
+    const token = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`,
-    });
+    }).then(res => res.json())
 
-    const data = await response.json();
-    accessToken = data.access_token;
-    // console.log(accessToken, "in getToken");
+    accessToken = token.access_token;
   };
 
   const getArtistId = async () => {
-    await getToken();
+    await getSpotifyToken();
     const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
-    console.log('SEARCHURL', searchUrl)
     await fetch(searchUrl, {
       method: "GET",
       headers: {
@@ -53,7 +48,6 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log('in getArtistId', data)
         setSelectArtist(() => data.artists.items)
       })
     setSearch("");

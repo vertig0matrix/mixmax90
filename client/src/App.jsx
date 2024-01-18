@@ -25,14 +25,14 @@ function App () {
   // }, [])
 
   return (
-    <main>
+    <>
       <Header />
       <Home
         currentTracks={currentTracks}
         setCurrentTracks={setCurrentTracks}
         getPlaylist={getPlaylist}
       />
-    </main>
+    </>
   );
 }
 
