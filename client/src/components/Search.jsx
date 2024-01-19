@@ -9,42 +9,21 @@ import { useEffect, useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
+import { getSpotifyToken } from "./apiServices";
 
-const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
+const Search = ({ search, setSearch }) => {
 
   const [searchResult, setSearchResult] = useState([]);
-
   const [topTracks, setTopTracks] = useState([]);
-
-
   const [artistId, setArtistId] = useState(null);
   const [showTopTracks, setShowTopTracks] = useState(false);
   const [heartColor, setHeartColor] = useState("#eee");
 
-  let accessToken = null;
-
   let artistName = search.replace(/\s+/g, "+");
-  
-
-  const getSpotifyToken = async () => {
-    const url = "https://accounts.spotify.com/api/token";
-    const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
-    const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
-
-    const token = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`,
-    }).then(res => res.json())
-
-    accessToken = token.access_token;
-  };
 
   // search for artists by name in search box 
   const searchForArtist = async () => {
-    await getSpotifyToken();  
+    const accessToken  = await getSpotifyToken();  
     const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
     await fetch(searchUrl, {
       method: "GET",
@@ -61,7 +40,6 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
 
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
-    // console.log('ARTISTID', artistId)
     await getSpotifyToken();
 
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
@@ -74,6 +52,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     });
 
     const artistData = await relatedArtistsResponse.json();
+    console.log('getRelatedArtistData running 1 🌊')
 
     const artistIds = getArtistIds(artistData);
     const tracks = await getTopTracks(artistIds);
@@ -82,7 +61,6 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     // save to DB
     addTopTrackstoDB(randomTracks)
     setHeartColor("#eee");
-    console.log('getRelatedArtistData running 🌊')
   };
 
   const getArtistIds = (data) => {
@@ -92,7 +70,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       data.artists.forEach((artist) => {
         if (artist.name) {
           artistIds.push(artist.id);
-          console.log('getArtistIds running 🦖')
+          console.log('getArtistIds running 2 🦖')
           // artistIds.push({id:artist.id, name:artist.name});
         }
       });
@@ -119,6 +97,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       })
     );
     // console.log('TOPTRAX', topTracks)
+    console.log('top tracks is running 3 🐈')
     return topTracks;
   };
 
@@ -145,6 +124,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       });
     });
 
+    console.log('getRandomTracksByArtist 4 🚂')
     return result;
   };
   
@@ -157,6 +137,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       },
       body: JSON.stringify(tracks),
     });
+    console.log('addTopTrackstoDB 5 💻')
   };
 
   const heartClick = () => {
@@ -164,8 +145,10 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     setHeartColor("red");
 
     // Your additional onClick logic goes here
-    console.log("Heart clicked!");
+    console.log("Heart clicked! 6");
   };
+
+
   return (
     <div>
       <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
