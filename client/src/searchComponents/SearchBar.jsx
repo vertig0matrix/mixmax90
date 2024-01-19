@@ -1,7 +1,6 @@
 import React from "react";
 import { BsSearchHeart } from "react-icons/bs";
 
-
 export function SearchBar ({ search, handleSearch, setSearch }) {
   return (
     <form className="searchForm" onSubmit={(e) => e.preventDefault()} >

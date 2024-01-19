@@ -11,6 +11,7 @@ import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
 import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices";
 import SearchBar from "../searchComponents/SearchBar"
+import SearchList from "../searchComponents/SearchList"
 
 const Search = ({ search, setSearch }) => {
 
@@ -84,36 +85,7 @@ const Search = ({ search, setSearch }) => {
     <div>
       <SearchBar search = {search} handleSearch = {handleSearch} setSearch = {setSearch} />
 
-      <ul className="artist-search-ul">
-        {searchResult.map((artist, index) => (
-          <li
-            className="artist-search-li"
-            onClick={() => {
-              {
-                console.log("in selectArtist.map");
-              }
-              setTopTracks([]);
-              // click creates
-              handleRelatedArtistData(artist.id);
-              setSearchResult([]);
-              setShowTopTracks(true);
-            }}
-            key={index}
-          >
-            <div className="artist-search-thumb-container">
-              {artist.images[2] && (
-                <img
-                  className="artist-search-thumb-img"
-                  src={artist.images[2].url}
-                  alt=""
-                />
-              )}
-            </div>
-            <div className="artist-search-name">{artist.name}</div>
-            {/* Id: {artist.id} */}
-          </li>
-        ))}
-      </ul>
+      <SearchList searchResult={searchResult} setTopTracks={setTopTracks} handleRelatedArtistData={handleRelatedArtistData} setSearchResult={setSearchResult} setShowTopTracks={setShowTopTracks} />
 
       {showTopTracks && (
         <ul className="top-tracks-ul">
