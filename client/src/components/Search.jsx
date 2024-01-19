@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
-import { getSpotifyToken, searchForArtist, getTopTracks, addTopTrackstoDB } from "./apiServices";
+import { getSpotifyToken, searchForArtist, getTopTracks, addTopTrackstoDB, getRelatedArtistData } from "./apiServices";
 
 const Search = ({ search, setSearch }) => {
 
@@ -19,31 +19,16 @@ const Search = ({ search, setSearch }) => {
   const [showTopTracks, setShowTopTracks] = useState(false);
   const [heartColor, setHeartColor] = useState("#eee");
 
-  let artistName = search.replace(/\s+/g, "+");
-  
-  async function handleSearch (artistName) {
+
+  async function handleSearch () {
+    let artistName = search.replace(/\s+/g, "+");
     const data = await searchForArtist(artistName)
-    setSearchResult(data.artists.items) 
+    setSearchResult(data.artists.items)
     setSearch("");
   }
 
-  
-
-
-  const getRelatedArtistData = async (clickedArtistId) => {
-    setArtistId(clickedArtistId)
-    const accessToken  = await getSpotifyToken();
-
-    const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
-
-    const relatedArtistsResponse = await fetch(relatedArtistsUrl, {
-      method: "Get",
-      headers: {
-        Authorization: "Bearer " + `${accessToken}`,
-      },
-    });
-
-    const artistData = await relatedArtistsResponse.json();
+  async function handleRelatedArtistData (id) {
+    const artistData = await getRelatedArtistData(id);
     console.log('getRelatedArtistData running 1 🌊')
 
     const artistIds = getArtistIds(artistData);
@@ -54,6 +39,8 @@ const Search = ({ search, setSearch }) => {
     addTopTrackstoDB(randomTracks)
     setHeartColor("#eee");
   };
+
+
 
   const getArtistIds = (data) => {
     const artistIds = [];
@@ -135,7 +122,7 @@ const Search = ({ search, setSearch }) => {
               }
               setTopTracks([]);
               // click creates
-              getRelatedArtistData(artist.id);
+              handleRelatedArtistData(artist.id);
               setSearchResult([]);
               setShowTopTracks(true);
             }}
@@ -166,7 +153,7 @@ const Search = ({ search, setSearch }) => {
                   console.log("in reload");
                 }
                 setTopTracks([]);
-                getRelatedArtistData(artistId);
+                handleRelatedArtistData(artistId);
                 setSearchResult([]);
                 setShowTopTracks(true);
               }}
