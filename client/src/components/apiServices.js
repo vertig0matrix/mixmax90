@@ -21,16 +21,18 @@ export async function searchForArtist (artistName) {
   const accessToken = await getSpotifyToken();
   const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
 
-  const data = await fetch(searchUrl, {
+  const searchedArtist = await fetch(searchUrl, {
     method: "GET",
     headers: {
       Authorization: "Bearer " + `${accessToken}`,
     },
   })
-    .then((response) => response.json())
-    .catch(error => console.log('error getting artist ID', error))
-
-  return data;
+  try {
+      const data = await searchedArtist.json()
+      return data;
+    } catch (error) {
+      console.log(`Unable to search for artist:`, error)
+    }
 };
 
 export async function getRelatedArtistData (clickedArtistId) {
