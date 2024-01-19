@@ -7,10 +7,10 @@
 
 import React from "react";
 import { useState } from "react";
-import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
 import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices";
+import SearchBar from "../searchComponents/SearchBar"
 
 const Search = ({ search, setSearch }) => {
 
@@ -82,21 +82,7 @@ const Search = ({ search, setSearch }) => {
 
   return (
     <div>
-      <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          size="50"
-          name=""
-          id="search"
-          role="searchbox"
-          placeholder=" Find music like..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button onClick={handleSearch} type="submit" id="submitButton">
-          <BsSearchHeart />
-        </button>
-      </form>
+      <SearchBar search = {search} handleSearch = {handleSearch} setSearch = {setSearch} />
 
       <ul className="artist-search-ul">
         {searchResult.map((artist, index) => (
