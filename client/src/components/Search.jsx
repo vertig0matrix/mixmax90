@@ -2,6 +2,7 @@
 // TODO create a util file for the functions
 // TODO abstract components from html
 // TODO implement spotify login feature
+// TODO fix search icon functionality
 
 import React from "react";
 import { useEffect, useState } from "react";
@@ -11,10 +12,11 @@ import { TbReload } from "react-icons/tb";
 
 const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
 
+  const [searchResult, setSearchResult] = useState([]);
+
   const [topTracks, setTopTracks] = useState([]);
 
-  const [selectArtist, setSelectArtist] = useState([]);
-  
+
   const [artistId, setArtistId] = useState(null);
   const [showTopTracks, setShowTopTracks] = useState(false);
   const [heartColor, setHeartColor] = useState("#eee");
@@ -40,8 +42,8 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     accessToken = token.access_token;
   };
 
-
-  const getArtistId = async () => {
+  // search for artists by name in search box 
+  const searchForArtist = async () => {
     await getSpotifyToken();  
     const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
     await fetch(searchUrl, {
@@ -51,15 +53,15 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => {setSelectArtist(() => data.artists.items), console.log('🍤', selectArtist)})
+      .then((data) => {setSearchResult(() => data.artists.items), console.log('searchForArtist running 🔥', data.artists)})
       .catch(error => console.log('error getting artist ID', error))
     setSearch("");
 
-  }
+  };
 
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
-    console.log('ARTISTID', artistId)
+    // console.log('ARTISTID', artistId)
     await getSpotifyToken();
 
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
@@ -74,15 +76,13 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     const artistData = await relatedArtistsResponse.json();
 
     const artistIds = getArtistIds(artistData);
-    console.log("IDS", artistIds);
     const tracks = await getTopTracks(artistIds);
-    console.log("TRACKS", tracks);
     const randomTracks = getRandomTracksByArtist(tracks);
-    console.log("topTracks", randomTracks);
     setTopTracks(randomTracks);
     // save to DB
     addTopTrackstoDB(randomTracks)
     setHeartColor("#eee");
+    console.log('getRelatedArtistData running 🌊')
   };
 
   const getArtistIds = (data) => {
@@ -92,6 +92,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       data.artists.forEach((artist) => {
         if (artist.name) {
           artistIds.push(artist.id);
+          console.log('getArtistIds running 🦖')
           // artistIds.push({id:artist.id, name:artist.name});
         }
       });
@@ -178,13 +179,13 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={getArtistId} type="submit" id="submitButton">
+        <button onClick={searchForArtist} type="submit" id="submitButton">
           <BsSearchHeart />
         </button>
       </form>
 
       <ul className="artist-search-ul">
-        {selectArtist.map((artist, index) => (
+        {searchResult.map((artist, index) => (
           <li
             className="artist-search-li"
             onClick={() => {
@@ -194,7 +195,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
               setTopTracks([]);
               // click creates
               getRelatedArtistData(artist.id);
-              setSelectArtist([]);
+              setSearchResult([]);
               setShowTopTracks(true);
             }}
             key={index}
@@ -225,7 +226,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
                 }
                 setTopTracks([]);
                 getRelatedArtistData(artistId);
-                setSelectArtist([]);
+                setSearchResult([]);
                 setShowTopTracks(true);
               }}
             >
