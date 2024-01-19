@@ -1,6 +1,3 @@
-// TODO check the use/necessity of props in Search.jsx  
-// TODO create a util file for the functions
-// TODO abstract components from html
 // TODO implement spotify login feature
 // TODO fix search icon functionality
 // TODO fix heart icon functionality
@@ -13,7 +10,6 @@ import SearchList from "../searchComponents/SearchList"
 import TopTracks from "../searchComponents/TopTracks";
 
 const Search = ({ search, setSearch }) => {
-
   const [searchResult, setSearchResult] = useState([]);
   const [artistId, setArtistId] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
@@ -74,7 +70,6 @@ const Search = ({ search, setSearch }) => {
   const heartClick = () => {
     // Update the color to red when clicked
     setHeartColor("red");
-
     // Your additional onClick logic goes here
     console.log("Heart clicked! 6");
   };
@@ -82,30 +77,30 @@ const Search = ({ search, setSearch }) => {
 
   return (
     <div>
-      <SearchBar 
-      search = {search} 
-      handleSearch = {handleSearch} 
-      setSearch = {setSearch} 
+      <SearchBar
+        search={search}
+        handleSearch={handleSearch}
+        setSearch={setSearch}
       />
 
-      <SearchList 
-      searchResult={searchResult} 
-      setTopTracks={setTopTracks} 
-      handleRelatedArtistData={handleRelatedArtistData} 
-      setSearchResult={setSearchResult} 
-      setShowTopTracks={setShowTopTracks} 
+      <SearchList
+        searchResult={searchResult}
+        setTopTracks={setTopTracks}
+        handleRelatedArtistData={handleRelatedArtistData}
+        setSearchResult={setSearchResult}
+        setShowTopTracks={setShowTopTracks}
       />
 
-      <TopTracks 
-      showTopTracks={showTopTracks} 
-      heartColor={heartColor} 
-      heartClick={heartClick} 
-      setTopTracks={setTopTracks} 
-      handleRelatedArtistData={handleRelatedArtistData} 
-      setSearchResult={setSearchResult} 
-      setShowTopTracks={setShowTopTracks}
-      topTracks={topTracks}
-      artistId={artistId}
+      <TopTracks
+        showTopTracks={showTopTracks}
+        heartColor={heartColor}
+        heartClick={heartClick}
+        setTopTracks={setTopTracks}
+        handleRelatedArtistData={handleRelatedArtistData}
+        setSearchResult={setSearchResult}
+        setShowTopTracks={setShowTopTracks}
+        topTracks={topTracks}
+        artistId={artistId}
       />
 
     </div>
