@@ -1,5 +1,7 @@
 
 
+
+
 export async function getSpotifyToken () {
   const url = "https://accounts.spotify.com/api/token";
   const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
@@ -16,5 +18,37 @@ export async function getSpotifyToken () {
   return token.access_token;
 };
 
+export async function getTopTracks (data) {
+  const topTracks = [];
+  const accessToken  = await getSpotifyToken();
+  await Promise.all(
+    data.map(async (id) => {
+      const url = `https://api.spotify.com/v1/artists/${id}/top-tracks?market=GB`;
+      const response = await fetch(url, {
+        method: "Get",
+        headers: {
+          Authorization: "Bearer " + `${accessToken}`,
+        },
+      });
 
-// export default getSpotifyToken;
+      const artistTopTracks = await response.json();
+      topTracks.push(artistTopTracks);
+    })
+  );
+  // console.log('TOPTRAX', topTracks)
+  console.log('top tracks is running 3 🐈')
+  return topTracks;
+};
+
+
+export async function addTopTrackstoDB (tracks) {
+  fetch("http://localhost:3000/toptracks", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(tracks),
+  });
+  console.log('addTopTrackstoDB 5 💻')
+};

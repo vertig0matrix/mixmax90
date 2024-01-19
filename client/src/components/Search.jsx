@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
-import { getSpotifyToken } from "./apiServices";
+import { getSpotifyToken, getTopTracks, addTopTrackstoDB } from "./apiServices";
 
 const Search = ({ search, setSearch }) => {
 
@@ -35,12 +35,11 @@ const Search = ({ search, setSearch }) => {
       .then((data) => {setSearchResult(() => data.artists.items), console.log('searchForArtist running 🔥', data.artists)})
       .catch(error => console.log('error getting artist ID', error))
     setSearch("");
-
   };
 
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
-    await getSpotifyToken();
+    const accessToken  = await getSpotifyToken();
 
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
 
@@ -79,27 +78,6 @@ const Search = ({ search, setSearch }) => {
     return artistIds;
   };
 
-  const getTopTracks = async (data) => {
-    const topTracks = [];
-
-    await Promise.all(
-      data.map(async (id) => {
-        const url = `https://api.spotify.com/v1/artists/${id}/top-tracks?market=GB`;
-        const response = await fetch(url, {
-          method: "Get",
-          headers: {
-            Authorization: "Bearer " + `${accessToken}`,
-          },
-        });
-
-        const artistTopTracks = await response.json();
-        topTracks.push(artistTopTracks);
-      })
-    );
-    // console.log('TOPTRAX', topTracks)
-    console.log('top tracks is running 3 🐈')
-    return topTracks;
-  };
 
   function getRandomTracksByArtist (tracks) {
     const uniqueArtists = new Set();
@@ -128,17 +106,7 @@ const Search = ({ search, setSearch }) => {
     return result;
   };
   
-  async function addTopTrackstoDB (tracks) {
-    fetch("http://localhost:3000/toptracks", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(tracks),
-    });
-    console.log('addTopTrackstoDB 5 💻')
-  };
+
 
   const heartClick = () => {
     // Update the color to red when clicked
