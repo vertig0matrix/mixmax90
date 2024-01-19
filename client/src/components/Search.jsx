@@ -7,11 +7,10 @@
 
 import React from "react";
 import { useState } from "react";
-import { GoHeart } from "react-icons/go";
-import { TbReload } from "react-icons/tb";
 import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices";
 import SearchBar from "../searchComponents/SearchBar"
 import SearchList from "../searchComponents/SearchList"
+import TopTracks from "../searchComponents/TopTracks";
 
 const Search = ({ search, setSearch }) => {
 
@@ -83,57 +82,32 @@ const Search = ({ search, setSearch }) => {
 
   return (
     <div>
-      <SearchBar search = {search} handleSearch = {handleSearch} setSearch = {setSearch} />
+      <SearchBar 
+      search = {search} 
+      handleSearch = {handleSearch} 
+      setSearch = {setSearch} 
+      />
 
-      <SearchList searchResult={searchResult} setTopTracks={setTopTracks} handleRelatedArtistData={handleRelatedArtistData} setSearchResult={setSearchResult} setShowTopTracks={setShowTopTracks} />
+      <SearchList 
+      searchResult={searchResult} 
+      setTopTracks={setTopTracks} 
+      handleRelatedArtistData={handleRelatedArtistData} 
+      setSearchResult={setSearchResult} 
+      setShowTopTracks={setShowTopTracks} 
+      />
 
-      {showTopTracks && (
-        <ul className="top-tracks-ul">
-          <div className="top-tracks-ul-title-container">
-            <div
-              className="top-tracks-ul-title-container-icon"
-              onClick={() => {
-                {
-                  console.log("in reload");
-                }
-                setTopTracks([]);
-                handleRelatedArtistData(artistId);
-                setSearchResult([]);
-                setShowTopTracks(true);
-              }}
-            >
-              <TbReload />
-            </div>
-            <div className="top-tracks-title">Nice work!</div>
-            <div
-              className="top-tracks-ul-title-container-icon"
-              id="heart"
-              style={{ color: heartColor }}
-              onClick={heartClick}
-            >
-              <GoHeart />
-            </div>
-          </div>
-          {topTracks.map((track, index) => (
-            <li className="top-tracks-li" key={index}>
-              {/* { console.log('TRACK STRUCTURE',track)} */}
-              <div className="top-tracks-thumb-container">
-                {track.album.images[2] && (
-                  <img
-                    className="top-tracks-thumb-img"
-                    src={track.album.images[2].url}
-                    alt=""
-                  />
-                )}
-              </div>
-              <div className="track-details">
-                <div className="track-details-track">{`${track.name}`}</div>
-                <div className="track-details-artist">{`${track.artists[0].name}`}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <TopTracks 
+      showTopTracks={showTopTracks} 
+      heartColor={heartColor} 
+      heartClick={heartClick} 
+      setTopTracks={setTopTracks} 
+      handleRelatedArtistData={handleRelatedArtistData} 
+      setSearchResult={setSearchResult} 
+      setShowTopTracks={setShowTopTracks}
+      topTracks={topTracks}
+      artistId={artistId}
+      />
+
     </div>
   );
 };
