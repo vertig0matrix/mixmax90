@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
-import { getSpotifyToken, getTopTracks, addTopTrackstoDB } from "./apiServices";
+import { getSpotifyToken, searchForArtist, getTopTracks, addTopTrackstoDB } from "./apiServices";
 
 const Search = ({ search, setSearch }) => {
 
@@ -20,22 +20,15 @@ const Search = ({ search, setSearch }) => {
   const [heartColor, setHeartColor] = useState("#eee");
 
   let artistName = search.replace(/\s+/g, "+");
-
-  // search for artists by name in search box 
-  const searchForArtist = async () => {
-    const accessToken  = await getSpotifyToken();  
-    const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
-    await fetch(searchUrl, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + `${accessToken}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {setSearchResult(() => data.artists.items), console.log('searchForArtist running 🔥', data.artists)})
-      .catch(error => console.log('error getting artist ID', error))
+  
+  async function handleSearch (artistName) {
+    const data = await searchForArtist(artistName)
+    setSearchResult(data.artists.items) 
     setSearch("");
-  };
+  }
+
+  
+
 
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
@@ -78,7 +71,6 @@ const Search = ({ search, setSearch }) => {
     return artistIds;
   };
 
-
   function getRandomTracksByArtist (tracks) {
     const uniqueArtists = new Set();
     const result = [];
@@ -105,8 +97,6 @@ const Search = ({ search, setSearch }) => {
     console.log('getRandomTracksByArtist 4 🚂')
     return result;
   };
-  
-
 
   const heartClick = () => {
     // Update the color to red when clicked
@@ -130,7 +120,7 @@ const Search = ({ search, setSearch }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={searchForArtist} type="submit" id="submitButton">
+        <button onClick={handleSearch} type="submit" id="submitButton">
           <BsSearchHeart />
         </button>
       </form>

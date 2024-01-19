@@ -1,6 +1,20 @@
 
+  // search for artists by name in search box 
+export async function searchForArtist (artistName) {
+  const accessToken  = await getSpotifyToken();  
+  const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
 
-
+  const data = await fetch(searchUrl, {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + `${accessToken}`,
+    },
+  })
+    .then((response) => response.json())
+    .catch(error => console.log('error getting artist ID', error))
+  
+  return data;
+};
 
 export async function getSpotifyToken () {
   const url = "https://accounts.spotify.com/api/token";
@@ -39,7 +53,6 @@ export async function getTopTracks (data) {
   console.log('top tracks is running 3 🐈')
   return topTracks;
 };
-
 
 export async function addTopTrackstoDB (tracks) {
   fetch("http://localhost:3000/toptracks", {
