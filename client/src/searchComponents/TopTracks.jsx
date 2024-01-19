@@ -1,20 +1,21 @@
 import React from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
+import TrackItem from "./TrackItem";
 
-export function TopTracks ({ 
-  showTopTracks, 
-  heartColor, 
-  heartClick, 
-  setTopTracks, 
-  handleRelatedArtistData, 
-  setSearchResult, 
+export function TopTracks ({
+  showTopTracks,
+  heartColor,
+  heartClick,
+  setTopTracks,
+  handleRelatedArtistData,
+  setSearchResult,
   setShowTopTracks,
   topTracks,
   artistId
-  }) {
+}) {
 
-  function handleClick(artistId) {
+  function handleClick (artistId) {
     setTopTracks([]);
     handleRelatedArtistData(artistId);
     setSearchResult([]);
@@ -42,21 +43,8 @@ export function TopTracks ({
             </div>
           </div>
           {topTracks.map((track, index) => (
-            <li className="top-tracks-li" key={index}>
-              <div className="top-tracks-thumb-container">
-                {track.album.images[2] && (
-                  <img
-                    className="top-tracks-thumb-img"
-                    src={track.album.images[2].url}
-                    alt=""
-                  />
-                )}
-              </div>
-              <div className="track-details">
-                <div className="track-details-track">{`${track.name}`}</div>
-                <div className="track-details-artist">{`${track.artists[0].name}`}</div>
-              </div>
-            </li>
+
+            <TrackItem track={track} key={index} />
           ))}
         </ul>
       )}
