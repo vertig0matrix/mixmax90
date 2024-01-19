@@ -1,8 +1,5 @@
-// TODO rename 'main' tag
-
-import React from 'react'
-import { useState } from "react";
-import Search from './Search'
+import React, { useState } from 'react';
+import Search from './Search';
 import Collection from './Collection';
 
 
@@ -23,4 +20,4 @@ const Home = ({ topTracks, setTopTracks, currentTracks }) => {
   );
 };
 
-export default Home
+export default Home;

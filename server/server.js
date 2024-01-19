@@ -5,7 +5,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const router = require("./router");
+const router = require("./router.js");
 const dataBaseConnect = require("./models/index.model.js")
 
 const PORT = 3000;

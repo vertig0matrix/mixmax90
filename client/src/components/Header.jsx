@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Nav from './Nav';
 
 const Header = () => {
@@ -8,6 +8,6 @@ const Header = () => {
       <Nav />
     </header>
   );
-}
+};
 
-export default Header
+export default Header;

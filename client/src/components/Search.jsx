@@ -10,8 +10,11 @@ import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
 
 const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
+
   const [topTracks, setTopTracks] = useState([]);
+
   const [selectArtist, setSelectArtist] = useState([]);
+  
   const [artistId, setArtistId] = useState(null);
   const [showTopTracks, setShowTopTracks] = useState(false);
   const [heartColor, setHeartColor] = useState("#eee");
@@ -37,8 +40,9 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     accessToken = token.access_token;
   };
 
+
   const getArtistId = async () => {
-    await getSpotifyToken();
+    await getSpotifyToken();  
     const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
     await fetch(searchUrl, {
       method: "GET",
@@ -47,9 +51,8 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        setSelectArtist(() => data.artists.items)
-      })
+      .then((data) => {setSelectArtist(() => data.artists.items), console.log('🍤', selectArtist)})
+      .catch(error => console.log('error getting artist ID', error))
     setSearch("");
 
   }
@@ -142,7 +145,8 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     });
 
     return result;
-  }
+  };
+  
   async function addTopTrackstoDB (tracks) {
     fetch("http://localhost:3000/toptracks", {
       method: "POST",
@@ -152,7 +156,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       },
       body: JSON.stringify(tracks),
     });
-  }
+  };
 
   const heartClick = () => {
     // Update the color to red when clicked

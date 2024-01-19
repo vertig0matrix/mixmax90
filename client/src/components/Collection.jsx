@@ -1,16 +1,13 @@
 // TODO add to collection
 
-import React from 'react'
-import Nav from './Nav'
-import CollectionList from './CollectionList'
+import React from 'react';
 
 const Collection = () => {
   return (
     <main>
       <div className='collection-title'>Collection</div>
-      <CollectionList />
     </main>
   )
-}
+};
 
-export default Collection
+export default Collection;
