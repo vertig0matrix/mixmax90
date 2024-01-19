@@ -19,6 +19,6 @@ function TrackItem ({ track, index }) {
             </div>
         </li>
     )
-}
+};
 
 export default TrackItem;
