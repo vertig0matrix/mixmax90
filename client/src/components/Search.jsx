@@ -69,25 +69,11 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       headers: {
         Authorization: "Bearer " + `${accessToken}`,
       },
-    });
+    }).then(res => res.json())
 
+    return await relatedArtistsResponse;
 
-
-    const relatedArtistData = await relatedArtistsResponse.json();
-
-    const artistIds = getArtistIds(relatedArtistData);
-    const tracks = await getTopTracks(artistIds);
-    const randomTracks = getRandomTracksByArtist(tracks);
-    setTopTracks(randomTracks);
-    // save to DB
-    addTopTrackstoDB(randomTracks)
-    setHeartColor("#eee");
-    console.log('getRelatedArtistData running 🌊')
   };
-
-
-
-
 
   const getArtistIds = (data) => {
     const artistIds = [];
@@ -170,6 +156,17 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     // Your additional onClick logic goes here
     console.log("Heart clicked!");
   };
+
+
+  const relatedArtistIds = getArtistIds(getRelatedArtistData);
+  const tracks = getTopTracks(relatedArtistIds);
+  const randomTracks = getRandomTracksByArtist(tracks);
+  setTopTracks(randomTracks);
+  // save to DB
+  addTopTrackstoDB(randomTracks)
+  setHeartColor("#eee");
+  console.log('getRelatedArtistData running 🌊')
+
   return (
     <div>
       <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
