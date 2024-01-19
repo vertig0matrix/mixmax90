@@ -3,19 +3,20 @@
 // TODO abstract components from html
 // TODO implement spotify login feature
 // TODO fix search icon functionality
+// TODO fix heart icon functionality
 
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BsSearchHeart } from "react-icons/bs";
 import { GoHeart } from "react-icons/go";
 import { TbReload } from "react-icons/tb";
-import { getSpotifyToken, searchForArtist, getTopTracks, addTopTrackstoDB, getRelatedArtistData } from "./apiServices";
+import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices";
 
 const Search = ({ search, setSearch }) => {
 
   const [searchResult, setSearchResult] = useState([]);
-  const [topTracks, setTopTracks] = useState([]);
   const [artistId, setArtistId] = useState(null);
+  const [topTracks, setTopTracks] = useState([]);
   const [showTopTracks, setShowTopTracks] = useState(false);
   const [heartColor, setHeartColor] = useState("#eee");
 
@@ -28,33 +29,21 @@ const Search = ({ search, setSearch }) => {
   }
 
   async function handleRelatedArtistData (id) {
+    setArtistId(id);
     const artistData = await getRelatedArtistData(id);
-    console.log('getRelatedArtistData running 1 🌊')
 
     const artistIds = getArtistIds(artistData);
     const tracks = await getTopTracks(artistIds);
     const randomTracks = getRandomTracksByArtist(tracks);
+
     setTopTracks(randomTracks);
-    // save to DB
-    addTopTrackstoDB(randomTracks)
+    addTopTracksToDB(randomTracks)
     setHeartColor("#eee");
   };
 
-
-
   const getArtistIds = (data) => {
     const artistIds = [];
-
-    if (data && data.artists && Array.isArray(data.artists)) {
-      data.artists.forEach((artist) => {
-        if (artist.name) {
-          artistIds.push(artist.id);
-          console.log('getArtistIds running 2 🦖')
-          // artistIds.push({id:artist.id, name:artist.name});
-        }
-      });
-    }
-
+    data.artists.forEach(artist => artistIds.push(artist.id));
     return artistIds;
   };
 
@@ -66,22 +55,19 @@ const Search = ({ search, setSearch }) => {
       album.tracks.forEach((track) => {
         const artistId = track.artists[0].id;
 
-        // Check if the artist ID is unique
-        if (!uniqueArtists.has(artistId)) {
-          // Add the artist ID to the set of unique artists
-          uniqueArtists.add(artistId);
+        // Add the artist ID to the set of unique artists
+        uniqueArtists.add(artistId);
 
-          // Randomly select a track for the artist
-          const randomIndex = Math.floor(Math.random() * album.tracks.length);
-          const randomTrack = album.tracks[randomIndex];
+        // Randomly select a track for the artist
+        const randomIndex = Math.floor(Math.random() * album.tracks.length);
+        const randomTrack = album.tracks[randomIndex];
 
-          // Add the random track to the result array
-          result.push(randomTrack);
-        }
+        // Add the random track to the result array
+        result.push(randomTrack);
+
       });
     });
 
-    console.log('getRandomTracksByArtist 4 🚂')
     return result;
   };
 

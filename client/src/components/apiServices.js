@@ -1,3 +1,20 @@
+// TODO finish addTopTracksToDB function
+
+export async function getSpotifyToken () {
+  const url = "https://accounts.spotify.com/api/token";
+  const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
+  const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
+
+  const token = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`,
+  })
+  const tokenData = await token.json();
+  return tokenData.access_token;
+};
 
 // search for artists by name in search box 
 export async function searchForArtist (artistName) {
@@ -16,21 +33,19 @@ export async function searchForArtist (artistName) {
   return data;
 };
 
-export async function getSpotifyToken () {
-  const url = "https://accounts.spotify.com/api/token";
-  const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
-  const client_secret = import.meta.env.VITE_APP_SPOTIFY_CLIENT_SECRET;
-
-  const token = await fetch(url, {
-    method: "POST",
+export async function getRelatedArtistData (clickedArtistId) {
+  const accessToken = await getSpotifyToken();
+  const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
+  const relatedArtistsResponse = await fetch(relatedArtistsUrl, {
+    method: "Get",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: "Bearer " + `${accessToken}`,
     },
-    body: `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`,
   })
-  const tokenData = await token.json();
-  return tokenData.access_token;
-};
+
+  const data = await relatedArtistsResponse.json();
+  return data;
+}
 
 export async function getTopTracks (data) {
   const topTracks = [];
@@ -49,12 +64,10 @@ export async function getTopTracks (data) {
       topTracks.push(artistTopTracks);
     })
   );
-  // console.log('TOPTRAX', topTracks)
-  console.log('top tracks is running 3 🐈')
   return topTracks;
 };
 
-export async function addTopTrackstoDB (tracks) {
+export async function addTopTracksToDB (tracks) {
   fetch("http://localhost:3000/toptracks", {
     method: "POST",
     mode: "cors",
@@ -65,17 +78,3 @@ export async function addTopTrackstoDB (tracks) {
   });
   console.log('addTopTrackstoDB 5 💻')
 };
-
-export async function getRelatedArtistData (clickedArtistId) {
-  const accessToken = await getSpotifyToken();
-  const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
-  const relatedArtistsResponse = await fetch(relatedArtistsUrl, {
-    method: "Get",
-    headers: {
-      Authorization: "Bearer " + `${accessToken}`,
-    },
-  })
-
-  const data = await relatedArtistsResponse.json();
-  return data;
-}
