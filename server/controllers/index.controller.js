@@ -19,6 +19,7 @@ async function savePlaylist (req, res) {
   try {
     const tracks = req.body;
     await TopTracks.create({ tracks })
+    console.log('saved in the db')
     res.status(201).json({ msg: 'tracks added' });
   } catch (error) {
     console.error(error);

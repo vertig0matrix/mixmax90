@@ -44,7 +44,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
 
   // search for artists by name in search box 
   const searchForArtist = async () => {
-    await getSpotifyToken();  
+    await getSpotifyToken();
     const searchUrl = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`;
     await fetch(searchUrl, {
       method: "GET",
@@ -53,7 +53,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => {setSearchResult(() => data.artists.items), console.log('searchForArtist running 🔥', data.artists)})
+      .then((data) => setSearchResult(() => data.artists.items))
       .catch(error => console.log('error getting artist ID', error))
     setSearch("");
 
@@ -61,11 +61,9 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
 
   const getRelatedArtistData = async (clickedArtistId) => {
     setArtistId(clickedArtistId)
-    // console.log('ARTISTID', artistId)
     await getSpotifyToken();
 
     const relatedArtistsUrl = `https://api.spotify.com/v1/artists/${clickedArtistId}/related-artists`;
-
     const relatedArtistsResponse = await fetch(relatedArtistsUrl, {
       method: "Get",
       headers: {
@@ -73,9 +71,11 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
       },
     });
 
-    const artistData = await relatedArtistsResponse.json();
 
-    const artistIds = getArtistIds(artistData);
+
+    const relatedArtistData = await relatedArtistsResponse.json();
+
+    const artistIds = getArtistIds(relatedArtistData);
     const tracks = await getTopTracks(artistIds);
     const randomTracks = getRandomTracksByArtist(tracks);
     setTopTracks(randomTracks);
@@ -84,6 +84,10 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
     setHeartColor("#eee");
     console.log('getRelatedArtistData running 🌊')
   };
+
+
+
+
 
   const getArtistIds = (data) => {
     const artistIds = [];
@@ -147,7 +151,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
 
     return result;
   };
-  
+
   async function addTopTrackstoDB (tracks) {
     fetch("http://localhost:3000/toptracks", {
       method: "POST",
@@ -189,10 +193,7 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
           <li
             className="artist-search-li"
             onClick={() => {
-              {
-                console.log("in selectArtist.map");
-              }
-              setTopTracks([]);
+              // setTopTracks([]);
               // click creates
               getRelatedArtistData(artist.id);
               setSearchResult([]);
@@ -202,15 +203,10 @@ const Search = ({ search, setSearch, currentTracks, setCurrentTracks }) => {
           >
             <div className="artist-search-thumb-container">
               {artist.images[2] && (
-                <img
-                  className="artist-search-thumb-img"
-                  src={artist.images[2].url}
-                  alt=""
-                />
+                <img className="artist-search-thumb-img" src={artist.images[2].url} />
               )}
             </div>
             <div className="artist-search-name">{artist.name}</div>
-            {/* Id: {artist.id} */}
           </li>
         ))}
       </ul>
