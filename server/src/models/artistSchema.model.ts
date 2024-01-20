@@ -12,7 +12,7 @@ export interface Artist {
     uri: string,
 };
 
-const artistSchema = new Schema <Artist> ({
+const artistSchema: Schema = new Schema<Artist>({
     external_urls: {
         spotify: { type: String },
     },

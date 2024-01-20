@@ -4,7 +4,7 @@ import { Schema } from 'mongoose';
 import albumSchema, { Album } from './albumSchema.model';
 import artistSchema, { Artist } from './artistSchema.model';
 
-interface Track {
+export interface Track {
     album: Album,
     artists: Artist[],
     disc_number: number,
@@ -28,7 +28,7 @@ interface Track {
     uri: string,
 }
 
-const trackSchema = new Schema({
+const trackSchema: Schema = new Schema<Track>({
     album: { albumSchema },
     artists: [artistSchema],
     disc_number: { type: Number },

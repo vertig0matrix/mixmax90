@@ -22,7 +22,7 @@ export interface Album {
     uri: string,
 }
 
-const albumSchema = new Schema <Album> ({
+const albumSchema: Schema = new Schema<Album>({
     album_type: { type: String },
     artists: { type: [artistSchema] },
     external_urls: {
