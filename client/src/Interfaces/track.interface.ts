@@ -25,7 +25,7 @@ export interface Track {
     uri: string,
 };
 
-interface TracksWrapper {
+export interface TracksWrapper {
     [key: string]: Track[]; // An object with a dynamic key, containing an array of Tracks
 }
 

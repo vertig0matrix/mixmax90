@@ -8,7 +8,8 @@ import SearchBar from "../searchComponents/SearchBar.js"
 import SearchList from "../searchComponents/SearchList.js"
 import TopTracks from "../searchComponents/TopTracks.js";
 import { Artist, ArtistResponseObject } from "../Interfaces/artist.interface.js"
-import { Track, TracksResponse} from "../Interfaces/track.interface.js";
+import { Track, TracksResponse, TracksWrapper } from "../Interfaces/track.interface.js";
+import { Album } from "../Interfaces/album.interface.js";
 
 interface SearchProps {
   search: string,
@@ -37,11 +38,11 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   }
 
   async function handleRelatedArtistData(id: string): Promise<void> {
-    
+
     setArtistId(id);
 
     const artistData: ArtistResponseObject = await getRelatedArtistData(id);
-    
+
     const artistIds: string[] = getArtistIds(artistData);
 
     const tracks: TracksResponse = await getTopTracks(artistIds);
@@ -57,31 +58,29 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   const getArtistIds = (data: ArtistResponseObject) => {
     const artistIds: string[] = [];
     data.artists.forEach(artist => artistIds.push(artist.id));
-    console.log(artistIds)
     return artistIds;
   };
 
-  function getRandomTracksByArtist(tracks) {
-    const uniqueArtists = new Set();
-    const result = [];
+  function getRandomTracksByArtist(tracks: TracksResponse): Track[] {
+    const uniqueArtists = new Set<string>();
+    const result: Track[] = [];
 
     tracks.forEach((album) => {
       album.tracks.forEach((track) => {
-        const artistId = track.artists[0].id;
+        const artistId: string = track.artists[0].id;
 
         // Add the artist ID to the set of unique artists
         uniqueArtists.add(artistId);
 
         // Randomly select a track for the artist
-        const randomIndex = Math.floor(Math.random() * album.tracks.length);
-        const randomTrack = album.tracks[randomIndex];
+        const randomIndex: number = Math.floor(Math.random() * album.tracks.length);
+        const randomTrack: Track = album.tracks[randomIndex];
+        console.log("result", randomTrack);
 
         // Add the random track to the result array
         result.push(randomTrack);
-
       });
     });
-
     return result;
   };
 
