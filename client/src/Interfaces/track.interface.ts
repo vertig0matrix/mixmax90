@@ -23,4 +23,10 @@ export interface Track {
     track_number: number,
     type: string,
     uri: string,
+};
+
+interface TracksWrapper {
+    [key: string]: Track[]; // An object with a dynamic key, containing an array of Tracks
 }
+
+export type TracksResponse = TracksWrapper[]; 

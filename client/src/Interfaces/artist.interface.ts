@@ -18,11 +18,11 @@ export interface Artist {
     popularity: number;
     type: string;
     uri: string;
-}
+};
 
 
 export interface ArtistResponseObject {
     [key: string]: {
         artist: Artist
     }
-}
+};

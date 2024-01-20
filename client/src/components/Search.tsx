@@ -8,7 +8,7 @@ import SearchBar from "../searchComponents/SearchBar.js"
 import SearchList from "../searchComponents/SearchList.js"
 import TopTracks from "../searchComponents/TopTracks.js";
 import { Artist, ArtistResponseObject } from "../Interfaces/artist.interface.js"
-import { Track } from "../Interfaces/track.interface.js";
+import { Track, TracksResponse} from "../Interfaces/track.interface.js";
 
 interface SearchProps {
   search: string,
@@ -37,17 +37,17 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   }
 
   async function handleRelatedArtistData(id: string): Promise<void> {
+    
     setArtistId(id);
+
     const artistData: ArtistResponseObject = await getRelatedArtistData(id);
 
     const artistIds: string[] = getArtistIds(artistData);
-    console.log('artistIds', artistIds)
 
-    const tracks: Track[] = await getTopTracks(artistIds);
-    console.log('tracks', tracks)
-    
+    const tracks: TracksResponse = await getTopTracks(artistIds);
+
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
-    console.log('randomTracks', randomTracks)
+
 
     setTopTracks(randomTracks);
     addTopTracksToDB(randomTracks)
