@@ -3,8 +3,8 @@
 import React from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
-import TrackItem, { TrackItemProps } from "./TrackItem.js"
-
+import TrackItem from "./TrackItem.js";
+import internal from "stream";
 
 
 interface TopTracksProps {
@@ -17,10 +17,10 @@ interface TopTracksProps {
   setShowTopTracks: Function,
   topTracks: [],
   artistId: string
-
+  
 }
 
-function TopTracks({
+export const TopTracks: React.FC<TopTracksProps> = ({
   showTopTracks,
   heartColor,
   heartClick,
@@ -30,15 +30,14 @@ function TopTracks({
   setShowTopTracks,
   topTracks,
   artistId
-}: TopTracksProps) {
+  }) => {
 
-  function handleClick(artistId: string): void {
+  function handleClick (artistId: string) {
     setTopTracks([]);
     handleRelatedArtistData(artistId);
     setSearchResult([]);
     setShowTopTracks(true);
   }
-
   return (
     <div>
       {showTopTracks && (
@@ -51,15 +50,16 @@ function TopTracks({
               <TbReload></TbReload>
             </div>
             <div className="top-tracks-title">Nice work!</div>
-            <GoHeart
-              className="top-tracks-ul-title-container-icon"
-              id="heart"
-              style={{ color: heartColor }}
-              onClick={() => heartClick}
+            <GoHeart 
+                className="top-tracks-ul-title-container-icon"
+                id="heart"
+                style={{ color: heartColor }}
+                onClick={() => handleClick(artistId)}
             />
           </div>
-          {topTracks.map(({ track, index }: TrackItemProps) => (
-            <TrackItem track={track} index={index} />
+          {topTracks.map((track, index) => (
+
+            <TrackItem track={track} index={index} key={index}/>
           ))}
         </ul>
       )}

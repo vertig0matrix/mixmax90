@@ -1,5 +1,3 @@
-'use strict';
-
 import React from "react";
 
 interface Track {
@@ -12,12 +10,13 @@ interface Track {
     artists: {}
 }
 
-export interface TrackItemProps {
+interface TrackItemProps {
     track: Track,
-    index: number
+    index: number,
+    key: number
 }
 
-function TrackItem({ track, index }: TrackItemProps) {
+const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
 
     return (
         <li className="top-tracks-li" key={index}>
