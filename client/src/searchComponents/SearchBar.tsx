@@ -1,7 +1,6 @@
 'use strict';
 
 import { BsSearchHeart } from "react-icons/bs";
-import { Search } from "react-router-dom";
 
 interface SearchBarProps {
   search: string,

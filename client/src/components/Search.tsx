@@ -3,33 +3,49 @@
 // TODO fix heart icon functionality
 
 import { useState } from "react";
-import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices";
-import SearchBar from "../searchComponents/SearchBar"
-import SearchList from "../searchComponents/SearchList"
-import TopTracks from "../searchComponents/TopTracks";
+import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices.js";
+import SearchBar from "../searchComponents/SearchBar.js"
+import SearchList from "../searchComponents/SearchList.js"
+import TopTracks from "../searchComponents/TopTracks.js";
+import { Artist } from "../Interfaces/artist.interface.js"
+import { Track } from "../Interfaces/track.interface.js";
 
-const Search = ({ search, setSearch }) => {
-  const [searchResult, setSearchResult] = useState([]);
-  const [artistId, setArtistId] = useState(null);
-  const [topTracks, setTopTracks] = useState([]);
-  const [showTopTracks, setShowTopTracks] = useState(false);
-  const [heartColor, setHeartColor] = useState("#eee");
+interface SearchProps {
+  search: string,
+  setSearch: Function
+}
+
+interface ArtistList {
+  artists: {
+    items: []
+  }
+}
 
 
-  async function handleSearch () {
-    let artistName = search.replace(/\s+/g, "+");
-    const data = await searchForArtist(artistName)
-    setSearchResult(data.artists.items)
+
+
+
+export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
+  const [searchResult, setSearchResult] = useState<[]>([]);
+  const [artistId, setArtistId] = useState<string>(null);
+  const [topTracks, setTopTracks] = useState<Track[]>([]);
+  const [showTopTracks, setShowTopTracks] = useState<boolean>(false);
+  const [heartColor, setHeartColor] = useState<string>("#eee");
+
+
+  async function handleSearch(): Promise<void> {
+    let artistName: string = search.replace(/\s+/g, "+");
+    const artistList: ArtistList = await searchForArtist(artistName)
+    setSearchResult(artistList.artists.items)
     setSearch("");
   }
 
-  async function handleRelatedArtistData (id) {
+  async function handleRelatedArtistData(id: string): Promise<void> {
     setArtistId(id);
-    const artistData = await getRelatedArtistData(id);
-
-    const artistIds = getArtistIds(artistData);
-    const tracks = await getTopTracks(artistIds);
-    const randomTracks = getRandomTracksByArtist(tracks);
+    const artistData: Artist[] = await getRelatedArtistData(id);
+    const artistIds: string[] = getArtistIds(artistData);
+    const tracks: Track[] = await getTopTracks(artistIds);
+    const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
     setTopTracks(randomTracks);
     addTopTracksToDB(randomTracks)
@@ -42,7 +58,7 @@ const Search = ({ search, setSearch }) => {
     return artistIds;
   };
 
-  function getRandomTracksByArtist (tracks) {
+  function getRandomTracksByArtist(tracks) {
     const uniqueArtists = new Set();
     const result = [];
 
@@ -67,7 +83,7 @@ const Search = ({ search, setSearch }) => {
   };
 
   const heartClick = () => {
-    
+
     // Update the color to red when clicked
     setHeartColor("red");
     // Your additional onClick logic goes here

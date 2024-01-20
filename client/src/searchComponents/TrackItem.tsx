@@ -1,14 +1,5 @@
 import React from "react";
-
-interface Track {
-    album: {
-        images: {
-            url: string
-        }[]
-    },
-    name: string,
-    artists: {}
-}
+import { Track } from "../Interfaces/track.interface.js";
 
 interface TrackItemProps {
     track: Track,
