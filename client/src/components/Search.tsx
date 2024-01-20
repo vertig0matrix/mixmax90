@@ -7,12 +7,12 @@ import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData }
 import SearchBar from "../searchComponents/SearchBar.js"
 import SearchList from "../searchComponents/SearchList.js"
 import TopTracks from "../searchComponents/TopTracks.js";
-import { Artist } from "../Interfaces/artist.interface.js"
+import { Artist, ArtistResponseObject } from "../Interfaces/artist.interface.js"
 import { Track } from "../Interfaces/track.interface.js";
 
 interface SearchProps {
   search: string,
-  setSearch: Function
+  setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
 interface ArtistList {
@@ -20,10 +20,6 @@ interface ArtistList {
     items: []
   }
 }
-
-
-
-
 
 export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   const [searchResult, setSearchResult] = useState<[]>([]);
@@ -42,10 +38,16 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
 
   async function handleRelatedArtistData(id: string): Promise<void> {
     setArtistId(id);
-    const artistData: Artist[] = await getRelatedArtistData(id);
+    const artistData: ArtistResponseObject = await getRelatedArtistData(id);
+
     const artistIds: string[] = getArtistIds(artistData);
+    console.log('artistIds', artistIds)
+
     const tracks: Track[] = await getTopTracks(artistIds);
+    console.log('tracks', tracks)
+    
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
+    console.log('randomTracks', randomTracks)
 
     setTopTracks(randomTracks);
     addTopTracksToDB(randomTracks)
