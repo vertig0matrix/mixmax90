@@ -4,7 +4,7 @@ import React from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
 import TrackItem, { TrackItemProps } from "./TrackItem.js"
-import internal from "stream";
+
 
 
 interface TopTracksProps {
@@ -20,7 +20,7 @@ interface TopTracksProps {
 
 }
 
-export function TopTracks({
+function TopTracks({
   showTopTracks,
   heartColor,
   heartClick,
@@ -66,3 +66,5 @@ export function TopTracks({
     </div>
   )
 };
+
+export default TopTracks;
