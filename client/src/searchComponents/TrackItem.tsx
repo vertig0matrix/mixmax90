@@ -12,12 +12,12 @@ interface Track {
     artists: {}
 }
 
-interface TrackItemProps {
+export interface TrackItemProps {
     track: Track,
     index: number
 }
 
-const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
+function TrackItem({ track, index }: TrackItemProps) {
 
     return (
         <li className="top-tracks-li" key={index}>
