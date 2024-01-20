@@ -1,6 +1,11 @@
 import React from "react";
 
-function TrackItem ({ track, index }) {
+type Props = {
+    track.name: string,
+    tracks.artists[0].name: string,
+}
+
+function TrackItem({ track, index }) {
 
     return (
         <li className="top-tracks-li" key={index}>

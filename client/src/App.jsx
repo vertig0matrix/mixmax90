@@ -5,9 +5,9 @@
 import { useEffect, useState } from 'react'
 
 import './App.css'
-import Header from "./components/Header";
-import Home from "./components/Home";
-import Collection from "./components/Collection";
+import Header from "./components/Header.jsx";
+import Home from "./components/Home.jsx";
+import Collection from "./components/Collection.jsx";
 
 
 function App () {
@@ -19,10 +19,6 @@ function App () {
       .then(res => setCurrentTracks(res))
       .catch(error => console.log(error))
   }
-
-  // useEffect(() => {
-  //   getPlaylist();
-  // }, [])
 
   return (
     <>
