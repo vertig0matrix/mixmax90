@@ -41,7 +41,7 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     setArtistId(id);
 
     const artistData: ArtistResponseObject = await getRelatedArtistData(id);
-
+    
     const artistIds: string[] = getArtistIds(artistData);
 
     const tracks: TracksResponse = await getTopTracks(artistIds);
@@ -54,9 +54,10 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     setHeartColor("#eee");
   };
 
-  const getArtistIds = (data) => {
-    const artistIds = [];
+  const getArtistIds = (data: ArtistResponseObject) => {
+    const artistIds: string[] = [];
     data.artists.forEach(artist => artistIds.push(artist.id));
+    console.log(artistIds)
     return artistIds;
   };
 

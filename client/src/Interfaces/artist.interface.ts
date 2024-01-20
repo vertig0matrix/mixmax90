@@ -22,7 +22,7 @@ export interface Artist {
 
 
 export interface ArtistResponseObject {
-    [key: string]: {
-        artist: Artist
-    }
+    artists: [
+        artists: Artist
+    ]
 };
