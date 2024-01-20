@@ -68,6 +68,7 @@ const Search = ({ search, setSearch }) => {
   };
 
   const heartClick = () => {
+    
     // Update the color to red when clicked
     setHeartColor("red");
     // Your additional onClick logic goes here

@@ -1,3 +1,5 @@
+'use strict';
+
 import React from "react";
 
 interface Track {
@@ -6,6 +8,8 @@ interface Track {
             url: string
         }[]
     },
+    name: string,
+    artists: {}
 }
 
 interface TrackItemProps {

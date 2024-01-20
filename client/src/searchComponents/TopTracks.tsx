@@ -1,9 +1,26 @@
+'use strict';
+
 import React from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
-import TrackItem from "./TrackItem";
+import TrackItem from "./TrackItem.js";
+import internal from "stream";
 
-export function TopTracks ({
+
+interface TopTracksProps {
+  showTopTracks: boolean,
+  heartColor: string,
+  heartClick: Function,
+  setTopTracks: Function,
+  handleRelatedArtistData: Function,
+  setSearchResult: Function,
+  setShowTopTracks: Function,
+  topTracks: [],
+  artistId: string
+  
+}
+
+export const TopTracks: React.FC<TopTracksProps> = ({
   showTopTracks,
   heartColor,
   heartClick,
@@ -13,9 +30,9 @@ export function TopTracks ({
   setShowTopTracks,
   topTracks,
   artistId
-}) {
+  }) => {
 
-  function handleClick (artistId) {
+  function handleClick (artistId: string) {
     setTopTracks([]);
     handleRelatedArtistData(artistId);
     setSearchResult([]);
@@ -30,17 +47,15 @@ export function TopTracks ({
               className="top-tracks-ul-title-container-icon"
               onClick={() => handleClick(artistId)}
             >
-              <TbReload />
+              <TbReload></TbReload>
             </div>
             <div className="top-tracks-title">Nice work!</div>
-            <div
-              className="top-tracks-ul-title-container-icon"
-              id="heart"
-              style={{ color: heartColor }}
-              onClick={heartClick}
-            >
-              <GoHeart />
-            </div>
+            <GoHeart 
+                className="top-tracks-ul-title-container-icon"
+                id="heart"
+                style={{ color: heartColor }}
+                onClick={() => heartClick}
+            />
           </div>
           {topTracks.map((track, index) => (
 
