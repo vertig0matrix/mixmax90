@@ -2,7 +2,6 @@
 // TODO fix search icon functionality
 // TODO fix heart icon functionality
 
-import React from "react";
 import { useState } from "react";
 import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices";
 import SearchBar from "../searchComponents/SearchBar"

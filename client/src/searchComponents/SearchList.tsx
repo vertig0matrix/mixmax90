@@ -1,8 +1,28 @@
-import React from "react";
+'use strict'
 
-export function SearchList ({ searchResult, setTopTracks, handleRelatedArtistData, setSearchResult, setShowTopTracks }) {
+interface SearchListProps {
+  searchResult: [], 
+  setTopTracks: Function, 
+  handleRelatedArtistData: Function, 
+  setSearchResult: Function, 
+  setShowTopTracks: Function 
+}
 
-  function handleClick (artist) {
+interface Artist {
+  id: number,
+  images: {},
+  name: string
+}
+
+export const SearchList: React.FC<SearchListProps> = ({ 
+  searchResult, 
+  setTopTracks, 
+  handleRelatedArtistData, 
+  setSearchResult, 
+  setShowTopTracks 
+}) => {
+
+  function handleClick (artist: Artist) {
     setTopTracks([]);
     // click creates
     handleRelatedArtistData(artist.id);
@@ -12,7 +32,7 @@ export function SearchList ({ searchResult, setTopTracks, handleRelatedArtistDat
 
   return (
     <ul className="artist-search-ul">
-    {searchResult.map((artist, index) => (
+    {searchResult.map((artist: Artist, index: number) => (
       <li
         className="artist-search-li"
         onClick={() => handleClick(artist)}

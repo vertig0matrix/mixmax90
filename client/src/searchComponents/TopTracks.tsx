@@ -4,10 +4,8 @@ import React from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
 import TrackItem from "./TrackItem.js";
-import internal from "stream";
 
-
-interface TopTracksProps {
+export interface TopTracksProps {
   showTopTracks: boolean,
   heartColor: string,
   heartClick: Function,
@@ -17,8 +15,7 @@ interface TopTracksProps {
   setShowTopTracks: Function,
   topTracks: [],
   artistId: string
-  
-}
+};
 
 export const TopTracks: React.FC<TopTracksProps> = ({
   showTopTracks,
@@ -37,7 +34,8 @@ export const TopTracks: React.FC<TopTracksProps> = ({
     handleRelatedArtistData(artistId);
     setSearchResult([]);
     setShowTopTracks(true);
-  }
+  };
+  
   return (
     <div>
       {showTopTracks && (
@@ -58,7 +56,6 @@ export const TopTracks: React.FC<TopTracksProps> = ({
             />
           </div>
           {topTracks.map((track, index) => (
-
             <TrackItem track={track} index={index} key={index}/>
           ))}
         </ul>
