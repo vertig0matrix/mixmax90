@@ -1,29 +1,30 @@
-'use strict';
-
+import React from 'react';
 import { BsSearchHeart } from "react-icons/bs";
 
-interface SearchBarProps {
-  search: string,
-  handleSearch: Function,
-  setSearch: Function
+export interface SearchBarProps {
+  search: string;
+  setSearch: (value: string) => void;
+  handleSearch: () => void;
 }
 
-export const SearchBar: React.FC<SearchBarProps> = ({ search, handleSearch, setSearch }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch, handleSearch }) => {
+
   return (
-    <form className="searchForm" onSubmit={(e) => e.preventDefault()} >
+    <form className="searchForm" onSubmit={(e) => { e.preventDefault(); handleSearch(); }} >
       <input
         type="text"
+        name="search"
         id="search"
         role="searchbox"
         placeholder=" Find music like..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <button onClick={() => handleSearch} type="submit" id="submitButton">
+      <button type="submit" id="submitButton">
         <BsSearchHeart />
       </button>
     </form>
-  )
+  );
 };
 
 export default SearchBar;

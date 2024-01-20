@@ -93,6 +93,7 @@ Header {
   flex-grow: 1;
   max-width: 82%;
   min-height: 28px;
+  size: 50;
   font-size: rem;
   padding: 0.25rem;
   border-radius: 0.25rem;
