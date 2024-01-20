@@ -1,10 +1,7 @@
-
-// TODO implement typescript
-
 import express, { Express } from "express";
 import cors from "cors";
 import router from "./router";
-import db from './index.model'
+import db from './index.model';
 
 const PORT: number = 3000;
 const app: Express = express();

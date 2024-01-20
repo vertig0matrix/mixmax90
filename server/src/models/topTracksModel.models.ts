@@ -1,8 +1,9 @@
 // TODO implement typescript
+'use strict'
 
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const trackSchema = require("./trackSchema.model");
+import mongoose, { Schema } from 'mongoose';
+import trackSchema from './trackSchema.model'
+
 
 const topTracksSchema = new Schema({
   tracks: [trackSchema]
@@ -10,4 +11,4 @@ const topTracksSchema = new Schema({
 
 const topTracksModel = mongoose.model("Album", topTracksSchema);
 
-module.exports = topTracksModel;
+export default topTracksModel;
