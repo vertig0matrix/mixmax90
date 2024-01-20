@@ -1,11 +1,19 @@
 import React from "react";
 
-type Props = {
-    track.name: string,
-    tracks.artists[0].name: string,
+interface Track {
+    album: {
+        images: {
+            url: string
+        }[]
+    },
 }
 
-function TrackItem({ track, index }) {
+interface TrackItemProps {
+    track: Track,
+    index: number
+}
+
+const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
 
     return (
         <li className="top-tracks-li" key={index}>
