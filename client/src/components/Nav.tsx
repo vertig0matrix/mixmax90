@@ -1,6 +1,6 @@
-import React from 'react';
 import { GoHome } from "react-icons/go";
 import { VscLibrary, VscAccount } from "react-icons/vsc";
+
 
 const Nav = () => {
 

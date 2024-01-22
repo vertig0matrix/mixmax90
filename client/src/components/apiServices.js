@@ -1,5 +1,11 @@
 // TODO finish addTopTracksToDB function
 
+
+export async function getPlaylist () {
+  const list = await fetch("http://localhost:3000/toptracks")
+  return list.json();
+}
+
 export async function getSpotifyToken () {
   const url = "https://accounts.spotify.com/api/token";
   const client_id = import.meta.env.VITE_APP_SPOTIFY_CLIENT_ID;
@@ -28,11 +34,11 @@ export async function searchForArtist (artistName) {
     },
   })
   try {
-      const data = await searchedArtist.json()
-      return data;
-    } catch (error) {
-      console.log(`Unable to search for artist:`, error)
-    }
+    const data = await searchedArtist.json()
+    return data;
+  } catch (error) {
+    console.log(`Unable to search for artist:`, error)
+  }
 };
 
 export async function getRelatedArtistData (clickedArtistId) {
@@ -70,7 +76,7 @@ export async function getTopTracks (data) {
 };
 
 export async function addTopTracksToDB (tracks) {
-  fetch("http://localhost:3000/toptracks", {
+  const res = await fetch("http://localhost:3000/toptracks", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -78,4 +84,5 @@ export async function addTopTracksToDB (tracks) {
     },
     body: JSON.stringify(tracks),
   });
+  console.log(res)
 };

@@ -10,10 +10,10 @@ export interface TopTracksProps {
   showTopTracks: boolean,
   heartColor: string,
   heartClick: Function,
-  setTopTracks: Function,
+  setTopTracks: React.Dispatch<React.SetStateAction<Track[]>>,
   handleRelatedArtistData: Function,
-  setSearchResult: Function,
-  setShowTopTracks: Function,
+  setSearchResult: React.Dispatch<React.SetStateAction<[]>>,
+  setShowTopTracks: React.Dispatch<React.SetStateAction<boolean>>,
   topTracks: Track[],
   artistId: string
 };

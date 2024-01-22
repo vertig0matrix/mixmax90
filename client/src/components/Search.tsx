@@ -22,7 +22,7 @@ interface ArtistList {
   }
 }
 
-export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
+const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   const [searchResult, setSearchResult] = useState<[]>([]);
   const [artistId, setArtistId] = useState<string>(null);
   const [topTracks, setTopTracks] = useState<Track[]>([]);
@@ -49,8 +49,9 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
 
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
-
+    // console.log(randomTracks)
     setTopTracks(randomTracks);
+    console.log('TOPT', topTracks)
     addTopTracksToDB(randomTracks)
     setHeartColor("#eee");
   };
@@ -75,7 +76,7 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
         // Randomly select a track for the artist
         const randomIndex: number = Math.floor(Math.random() * album.tracks.length);
         const randomTrack: Track = album.tracks[randomIndex];
-        console.log("result", randomTrack);
+        // console.log("result", randomTrack);
 
         // Add the random track to the result array
         result.push(randomTrack);
@@ -84,7 +85,7 @@ export const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     return result;
   };
 
-  const heartClick = () => {
+  const heartClick = (): void => {
 
     // Update the color to red when clicked
     setHeartColor("red");

@@ -1,11 +1,13 @@
 'use strict'
 
+import { Track } from "../Interfaces/track.interface";
+
 interface SearchListProps {
   searchResult: [],
-  setTopTracks: Function,
+  setTopTracks: React.Dispatch<React.SetStateAction<Track[]>>,
   handleRelatedArtistData: Function,
-  setSearchResult: Function,
-  setShowTopTracks: Function
+  setSearchResult: React.Dispatch<React.SetStateAction<[]>>,
+  setShowTopTracks: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 interface Artist {

@@ -3,7 +3,7 @@ import { BsSearchHeart } from "react-icons/bs";
 
 export interface SearchBarProps {
   search: string;
-  setSearch: (value: string) => void;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
   handleSearch: () => void;
 }
 
