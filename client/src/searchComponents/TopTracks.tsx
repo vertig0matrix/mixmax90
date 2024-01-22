@@ -3,8 +3,8 @@
 import React from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
-import TrackItem from "./TrackItem.js";
-import { Track } from "../Interfaces/track.interface.js";
+import TrackItem from "./TrackItem.tsx";
+import { Track } from "../Interfaces/track.interface.ts";
 
 export interface TopTracksProps {
   showTopTracks: boolean,

@@ -1,6 +1,6 @@
 'use strict'
 
-import { Track } from "../Interfaces/track.interface";
+import { Track } from "../Interfaces/track.interface.ts";
 
 interface SearchListProps {
   searchResult: [],

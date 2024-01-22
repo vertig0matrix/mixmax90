@@ -1,7 +1,5 @@
 // TODO add to collection
 
-import React from 'react';
-
 const Collection = () => {
   return (
     <main>
