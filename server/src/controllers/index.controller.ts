@@ -2,7 +2,7 @@
 // TODO feature: logic to delete saved mixtape
 import { RequestHandler, Request, Response } from 'express'
 import topTracksModel, { TopTracks } from '../models/topTracksModel.models'
-
+import db from '../index.model'
 
 export async function getPlaylist(req: Request, res: Response): Promise<void> {
   try {
