@@ -7,7 +7,7 @@ const PORT: number = 3000;
 const app: Express = express();
 
 app.use(cors());
-// app.use(express.json());
+app.use(express.json());
 app.use(router);
 
 async function startServer() {

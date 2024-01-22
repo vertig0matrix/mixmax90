@@ -66,6 +66,7 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     const uniqueArtists = new Set<string>();
     const result: Track[] = [];
 
+    
     tracks.forEach((album) => {
       album.tracks.forEach((track) => {
         const artistId: string = track.artists[0].id;
@@ -82,7 +83,7 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
         result.push(randomTrack);
       });
     });
-    return result;
+    return result.slice(0, 31);
   };
 
   const heartClick = (): void => {
