@@ -9,8 +9,6 @@ const Collection = () => {
 
   const [library, setLibrary] = useState<[]>([])
 
-
-
   useEffect(() => {
 
     const list = async function () {
@@ -24,7 +22,7 @@ const Collection = () => {
   return (
     <main>
       <div className='collection-title'>Collection</div>
-      {library.map((playlist) => (
+      {library && library.map((playlist) => (
 
         <SavedPlaylist playlist={playlist} key={index++} />
 
