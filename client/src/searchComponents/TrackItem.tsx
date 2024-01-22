@@ -1,5 +1,5 @@
 import React from "react";
-import { Track } from "../Interfaces/track.interface.js";
+import { Track } from "../Interfaces/track.interface.ts";
 
 interface TrackItemProps {
     track: Track,

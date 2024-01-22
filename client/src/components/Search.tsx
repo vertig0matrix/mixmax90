@@ -4,12 +4,12 @@
 
 import { useState } from "react";
 import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices.js";
-import SearchBar from "../searchComponents/SearchBar.js"
-import SearchList from "../searchComponents/SearchList.js"
-import TopTracks from "../searchComponents/TopTracks.js";
-import { Artist, ArtistResponseObject } from "../Interfaces/artist.interface.js"
-import { Track, TracksResponse, TracksWrapper } from "../Interfaces/track.interface.js";
-import { Album } from "../Interfaces/album.interface.js";
+import SearchBar from "../searchComponents/SearchBar.tsx"
+import SearchList from "../searchComponents/SearchList.tsx"
+import TopTracks from "../searchComponents/TopTracks.tsx";
+import { ArtistResponseObject } from "../Interfaces/artist.interface.ts"
+import { Track, TracksResponse, TracksWrapper } from "../Interfaces/track.interface.ts";
+
 
 interface SearchProps {
   search: string,
@@ -49,9 +49,7 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
 
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
-    // console.log(randomTracks)
     setTopTracks(randomTracks);
-    console.log('TOPT', topTracks)
     addTopTracksToDB(randomTracks)
     setHeartColor("#eee");
   };

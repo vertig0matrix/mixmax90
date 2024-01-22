@@ -1,10 +1,7 @@
-// TODO finish addTopTracksToDB function
-
-
 export async function getPlaylist () {
   const list = await fetch("http://localhost:3000/toptracks")
   return list.json();
-}
+};
 
 export async function getSpotifyToken () {
   const url = "https://accounts.spotify.com/api/token";
