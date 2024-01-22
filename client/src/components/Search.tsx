@@ -78,7 +78,9 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
         // console.log("result", randomTrack);
 
         // Add the random track to the result array
-        result.push(randomTrack);
+        if (!(result.includes(randomTrack))) {
+          result.push(randomTrack);
+        }
       });
     });
     return result.slice(0, 31);
