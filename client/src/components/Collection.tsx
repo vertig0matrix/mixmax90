@@ -6,27 +6,27 @@ import SavedPlaylist from './SavedPlaylist.tsx';
 
 
 const Collection = () => {
-  
-  const [library, setLibrary] = useState<Track[]>([])
-  
-  
-  
-  useEffect(() => { 
-    
+
+  const [library, setLibrary] = useState<[]>([])
+
+
+
+  useEffect(() => {
+
     const list = async function () {
-      const res = await getPlaylist() 
+      const res = await getPlaylist()
       setLibrary(res)
     }; list()
   }, [])
 
-
+  let index = 0;
 
   return (
     <main>
       <div className='collection-title'>Collection</div>
       {library.map((playlist) => (
 
-        <SavedPlaylist playlist={playlist} />
+        <SavedPlaylist playlist={playlist} key={index++} />
 
       ))};
     </main>
