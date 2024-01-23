@@ -22,9 +22,5 @@ async function startServer() {
   }
 };
 
-app.get("/", (req, res) => {
-  res.status(200).send("Hello World!");
-});
 
 startServer();
-

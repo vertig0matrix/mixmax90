@@ -1,12 +1,15 @@
 const request = require('supertest');
-const { app } = require('./index');
+const  { app } = require('./index');
 
-describe("Test the root path", () => {
-    test("It should response the GET method", () => {
-        request(app)
-            .get("/")
-            .then(response => {
-                expect(response.statusCode).toBe(200);
-            });
-    });
-});
+
+// app.get('/user', function(req, res) {
+//   res.status(200).json({ name: 'john' });
+// });
+
+describe("Test example", () => {
+    test("GET /toptracks", async () => {
+        const res = await request(app).get("/toptracks")
+        expect(res.status).toEqual(200)
+             
+    })
+})
