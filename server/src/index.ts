@@ -4,7 +4,7 @@ import router from "./router";
 import db from './index.model';
 
 const PORT: number = 3000;
-const app: Express = express();
+export const app: Express = express();
 
 app.use(cors());
 app.use(express.json());
@@ -22,4 +22,9 @@ async function startServer() {
   }
 };
 
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World!");
+});
+
 startServer();
+
