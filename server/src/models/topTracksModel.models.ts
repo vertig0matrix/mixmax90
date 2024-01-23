@@ -8,8 +8,8 @@ export interface TopTracks {
   tracks: Track[]
 }
 
-const topTracksSchema: Schema = new Schema<TopTracks>({
-  tracks: { type: [trackSchema] }
+export const topTracksSchema: Schema = new Schema<TopTracks>({
+  tracks: [trackSchema]
 })
 
 const topTracksModel = mongoose.model<TopTracks>("Album", topTracksSchema);
