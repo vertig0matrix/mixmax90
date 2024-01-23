@@ -6,7 +6,7 @@ import db from '../index.model'
 
 export async function getPlaylist(req: Request, res: Response): Promise<void> {
   try {
-    const newTopTracks: TopTracks[] = await topTracksModel.find({})
+    const newTopTracks = await topTracksModel.find({})
     res.status(200).send(newTopTracks)
   } catch (error) {
     console.error(error);
@@ -16,7 +16,7 @@ export async function getPlaylist(req: Request, res: Response): Promise<void> {
 
 export async function savePlaylist(req: Request, res: Response): Promise<void> {
   try {
-    const tracks: TopTracks[] = req.body;
+    const tracks = req.body;
     await topTracksModel.create({ tracks })
     console.log('saved in the db 📩')
     res.status(201).json({ msg: 'tracks added' });
