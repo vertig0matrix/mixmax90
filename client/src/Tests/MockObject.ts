@@ -1,6 +1,51 @@
 import { TopTracks } from "../Interfaces/topTracks.interface.ts"
 
-export const res_obj: TopTracks[] = [
+export const object = {
+  "album_type": "album",
+  "artists": [
+      {
+          "external_urls": {
+              "spotify": "https://open.spotify.com/artist/13ubrt8QOOCPljQ2FL1Kca"
+          },
+          "href": "https://api.spotify.com/v1/artists/13ubrt8QOOCPljQ2FL1Kca",
+          "id": "13ubrt8QOOCPljQ2FL1Kca",
+          "name": "A$AP Rocky",
+          "type": "artist",
+          "uri": "spotify:artist:13ubrt8QOOCPljQ2FL1Kca"
+      }
+  ],
+  "external_urls": {
+      "spotify": "https://open.spotify.com/album/6rzMufuu8sLkIizM4q9c7J"
+  },
+  "href": "https://api.spotify.com/v1/albums/6rzMufuu8sLkIizM4q9c7J",
+  "id": "6rzMufuu8sLkIizM4q9c7J",
+  "images": [
+      {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab67616d0000b2732ae92030b51fb8135d694af9",
+          "width": 640
+      },
+      {
+          "height": 300,
+          "url": "https://i.scdn.co/image/ab67616d00001e022ae92030b51fb8135d694af9",
+          "width": 300
+      },
+      {
+          "height": 64,
+          "url": "https://i.scdn.co/image/ab67616d000048512ae92030b51fb8135d694af9",
+          "width": 64
+      }
+  ],
+  "is_playable": true,
+  "name": "LONG.LIVE.A$AP (Deluxe Version)",
+  "release_date": "2013",
+  "release_date_precision": "year",
+  "total_tracks": 17,
+  "type": "album",
+  "uri": "spotify:album:6rzMufuu8sLkIizM4q9c7J"
+}
+
+export const MockObject : TopTracks[] = [
   {
     "_id": "65aff9ded6fd888b4c686e6a",
     "tracks": [

@@ -81,5 +81,4 @@ export async function addTopTracksToDB (tracks) {
     },
     body: JSON.stringify(tracks),
   });
-  console.log(res)
 };

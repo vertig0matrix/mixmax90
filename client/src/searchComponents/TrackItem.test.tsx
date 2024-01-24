@@ -11,7 +11,6 @@ describe('TrackItem Component', () => {
       },
       artists: [{ name: 'Artist Name' }],
       name: 'Track Name',
-      // ... other properties of the Track interface
     };
 
     render(<TrackItem track={mockTrack} index={0} />);

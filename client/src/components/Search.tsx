@@ -40,13 +40,9 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   async function handleRelatedArtistData(id: string): Promise<void> {
 
     setArtistId(id);
-
     const artistData: ArtistResponseObject = await getRelatedArtistData(id);
-
     const artistIds: string[] = getArtistIds(artistData);
-
     const tracks: TracksResponse = await getTopTracks(artistIds);
-
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
     setTopTracks(randomTracks);
@@ -61,36 +57,25 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   };
 
   function getRandomTracksByArtist(tracks: TracksResponse): Track[] {
-    const uniqueArtists = new Set<string>();
+
     const result: Track[] = [];
 
-    
     tracks.forEach((album) => {
       album.tracks.forEach((track) => {
-        const artistId: string = track.artists[0].id;
-
-        // Add the artist ID to the set of unique artists
-        uniqueArtists.add(artistId);
-
-        // Randomly select a track for the artist
         const randomIndex: number = Math.floor(Math.random() * album.tracks.length);
         const randomTrack: Track = album.tracks[randomIndex];
-        // console.log("result", randomTrack);
-
-        // Add the random track to the result array
         if (!(result.includes(randomTrack))) {
           result.push(randomTrack);
         }
       });
     });
-    return result.slice(0, 31);
+    let res = result.slice(0, 31);
+    console.log(res);
+    return res;
   };
 
   const heartClick = (): void => {
-
-    // Update the color to red when clicked
     setHeartColor("red");
-    // Your additional onClick logic goes here
     console.log("Heart clicked! 6");
   };
 

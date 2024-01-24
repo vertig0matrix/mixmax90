@@ -8,17 +8,13 @@ interface SavedPlaylistProps {
 
 const SavedPlaylist: React.FC<SavedPlaylistProps> = ({ playlist }) => {
   let PL = playlist.tracks
-  console.log(playlist.tracks[0].name)
 
   return (
-    <>
-      <div>
-        {playlist.tracks.map(track =>
-          <div>{track.name} </div>
-        )}
-        <div>❌</div>
-      </div>
-    </>
+    <div>
+      {playlist.tracks.map(track =>
+        <div key={track.id}>{track.name} </div>
+      )}
+    </div>
   )
 };
 
