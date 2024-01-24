@@ -3,8 +3,7 @@ import { Track } from "../Interfaces/track.interface.ts";
 
 interface TrackItemProps {
     track: Track,
-    index: number,
-    key: number
+    index: string,
 }
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
