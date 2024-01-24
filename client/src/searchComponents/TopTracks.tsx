@@ -1,10 +1,11 @@
 'use strict';
 
-import React from "react";
+import React, { useState } from "react";
 import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
 import TrackItem from "./TrackItem.tsx";
 import { Track } from "../Interfaces/track.interface.ts";
+import { addTopTracksToDB } from "../components/apiServices.js";
 
 export interface TopTracksProps {
   showTopTracks: boolean,
@@ -29,13 +30,21 @@ export const TopTracks: React.FC<TopTracksProps> = ({
   topTracks,
   artistId
 }) => {
-  // console.log(topTracks)
+
+  const [saved, setSaved] = useState("")
+
   function handleClick(artistId: string) {
     setTopTracks([]);
-    handleRelatedArtistData(artistId);
     setSearchResult([]);
     setShowTopTracks(true);
+    addTopTracksToDB(topTracks)
+    setSaved("Saved ❤️")
   };
+
+  function handleReloadClick() {
+    handleRelatedArtistData(artistId);
+
+  }
 
   return (
     <div>
@@ -45,11 +54,11 @@ export const TopTracks: React.FC<TopTracksProps> = ({
             <div
               role="button"
               className="top-tracks-ul-title-container-icon"
-              onClick={() => handleClick(artistId)}
+              onClick={() => handleReloadClick()}
             >
               <TbReload></TbReload>
             </div>
-            <div className="top-tracks-title">Nice work!</div>
+            <div className="top-tracks-title">{saved}</div>
             <GoHeart
               className="top-tracks-ul-title-container-icon"
               id="heart"

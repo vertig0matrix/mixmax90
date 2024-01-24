@@ -17,7 +17,8 @@ export async function getPlaylist(req: Request, res: Response): Promise<void> {
 export async function savePlaylist(req: Request, res: Response): Promise<void> {
   try {
     const tracks = req.body;
-    await topTracksModel.create({ tracks })
+    console.log(tracks)
+    await topTracksModel.create({ tracks }) // {tracks:[...]}
     console.log('saved in the db 📩')
     res.status(201).json({ msg: 'tracks added' });
   } catch (error) {

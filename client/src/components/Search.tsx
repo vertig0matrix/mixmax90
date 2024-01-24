@@ -45,8 +45,9 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
     setTopTracks(randomTracks);
-    addTopTracksToDB(randomTracks);
-    setHeartColor("#eee");
+    console.log('🐈', topTracks)
+    // addTopTracksToDB(randomTracks)
+
   };
 
   const getArtistIds = (data: ArtistResponseObject) => {
@@ -69,7 +70,6 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
       });
     });
     let res = result.slice(0, 31);
-    // console.log(res);
     return res;
   };
 
@@ -106,7 +106,6 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
         topTracks={topTracks}
         artistId={artistId}
       />
-
     </div>
   );
 };
