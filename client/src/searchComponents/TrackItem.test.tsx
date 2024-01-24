@@ -11,6 +11,7 @@ describe('TrackItem Component', () => {
       },
       artists: [{ name: 'Artist Name' }],
       name: 'Track Name',
+      // ... other properties of the Track interface
     };
 
     render(<TrackItem track={mockTrack} index={0} />);
@@ -18,5 +19,6 @@ describe('TrackItem Component', () => {
     expect(screen.getByText('Track Name')).toBeInTheDocument();
     expect(screen.getByText('Artist Name')).toBeInTheDocument();
     expect(screen.getByRole('img')).toHaveAttribute('src', 'http://example.com/image.jpg');
+
   });
 });

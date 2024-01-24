@@ -29,7 +29,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
   topTracks,
   artistId
 }) => {
-
+  console.log(topTracks)
   function handleClick(artistId: string) {
     setTopTracks([]);
     handleRelatedArtistData(artistId);
@@ -40,9 +40,10 @@ export const TopTracks: React.FC<TopTracksProps> = ({
   return (
     <div>
       {showTopTracks && (
-        <ul className="top-tracks-ul">
+        <>
           <div className="top-tracks-ul-title-container">
             <div
+              role="button"
               className="top-tracks-ul-title-container-icon"
               onClick={() => handleClick(artistId)}
             >
@@ -56,10 +57,14 @@ export const TopTracks: React.FC<TopTracksProps> = ({
               onClick={() => handleClick(artistId)}
             />
           </div>
-          {topTracks.map((track, index) => (
-            <TrackItem track={track} index={index} key={index} />
-          ))}
-        </ul>
+          <ul className="top-tracks-ul">
+            {topTracks.map((track, index) => (
+              <li>
+                <TrackItem track={track} index={index} key={index} />
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </div>
   )

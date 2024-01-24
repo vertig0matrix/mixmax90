@@ -10,7 +10,7 @@ interface TrackItemProps {
 const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
 
     return (
-        <li className="top-tracks-li" key={index}>
+        <div className="top-tracks-li" key={index}>
             <div className="top-tracks-thumb-container">
                 {track.album.images[2] && (
                     <img
@@ -24,7 +24,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
                 <div className="track-details-track">{`${track.name}`}</div>
                 <div className="track-details-artist">{`${track.artists[0].name}`}</div>
             </div>
-        </li>
+        </div>
     )
 };
 

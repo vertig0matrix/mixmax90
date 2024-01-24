@@ -1,30 +1,33 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, test, expect, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TopTracks from './TopTracks.tsx';
-import { Track } from "../Interfaces/track.interface.ts";
-import { object } from '../Tests/MockObject.ts';
+import { res_obj } from '../Tests/MockObject.ts';
+
+
 
 describe('TopTracks Component', () => {
-  const mockTracks: Track[] = new Array(31).fill({
-    album: {
-      images: [{}, {}, { url: 'http://example.com/image.jpg' }]
-    },
-    artists: [{ name: 'Artist Name' }],
-    name: 'Track Name',
-  });
+  test('renders a list of tracks', async () => {
+    const handleClick = vi.fn();
+    const setTopTracks = vi.fn();
+    const handleRelatedArtistData = vi.fn()
+    const setSearchResult = vi.fn();
+    const setShowTopTracks = vi.fn();
+    const MockObject = res_obj
 
-  // test('renders the correct number of tracks', () => {
-  //   render(<TopTracks showTopTracks={true} topTracks={mockTracks} />);
-  //   const trackItems = screen.getAllByTestId('track-item');
-  //   expect(trackItems).toHaveLength(31);
-  // });
+    render(<TopTracks showTopTracks={true}
+      onClick={handleClick}
+      setTopTracks={setTopTracks}
+      handleRelatedArtistData={handleRelatedArtistData}
+      setSearchResult={setSearchResult}
+      setShowTopTracks={setShowTopTracks}
+      topTracks={MockObject} />)
 
-  test('does not render when showTopTracks is false', () => {
-    render(<TopTracks showTopTracks={false} topTracks={mockTracks} />);
-    expect(screen.queryByTestId('top-tracks-ul')).not.toBeInTheDocument();
-  });
+    const click = screen.getByRole('button');
+    fireEvent.click(click);
 
+    const trackItems = await screen.findAllByRole('listitem');
+    expect(trackItems).toHaveLength(31);
 
-
-});
+  })
+})
