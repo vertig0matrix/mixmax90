@@ -1,14 +1,15 @@
-"use strict";
+'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const { Schema } = require('mongoose');
-const artistSchema = new Schema({
+const mongoose_1 = require("mongoose");
+;
+const artistSchema = new mongoose_1.Schema({
     external_urls: {
-        spotify: String,
+        spotify: { type: String },
     },
-    href: String,
-    id: String,
-    name: String,
-    type: String,
-    uri: String,
+    href: { type: String },
+    id: { type: String },
+    name: { type: String },
+    type: { type: String },
+    uri: { type: String },
 });
-module.exports = artistSchema;
+exports.default = { artistSchema };

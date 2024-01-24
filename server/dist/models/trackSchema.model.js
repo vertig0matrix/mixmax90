@@ -1,29 +1,32 @@
-"use strict";
+'use strict';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const { Schema } = require('mongoose');
-const albumSchema = require('./albumSchema.model');
-const artistSchema = require('./artistSchema.model');
-const trackSchema = new Schema({
-    album: { albumSchema },
-    artists: [artistSchema],
-    disc_number: Number,
-    duration_ms: Number,
-    explicit: Boolean,
+const mongoose_1 = require("mongoose");
+const albumSchema_model_1 = __importDefault(require("./albumSchema.model"));
+const artistSchema_model_1 = __importDefault(require("./artistSchema.model"));
+const trackSchema = new mongoose_1.Schema({
+    album: { albumSchema: albumSchema_model_1.default },
+    artists: [artistSchema_model_1.default],
+    disc_number: { type: Number },
+    duration_ms: { type: Number },
+    explicit: { type: Boolean },
     external_ids: {
-        isrc: String,
+        isrc: { type: String },
     },
     external_urls: {
-        spotify: String,
+        spotify: { type: String },
     },
-    href: String,
-    id: String,
-    is_local: Boolean,
-    is_playable: Boolean,
-    name: String,
-    popularity: Number,
-    preview_url: String,
-    track_number: Number,
-    type: String,
-    uri: String,
+    href: { type: String },
+    id: { type: String },
+    is_local: { type: Boolean },
+    is_playable: { type: Boolean },
+    name: { type: String },
+    popularity: { type: Number },
+    preview_url: { type: String },
+    track_number: { type: Number },
+    type: { type: String },
+    uri: { type: String },
 });
-module.exports = trackSchema;
+exports.default = trackSchema;

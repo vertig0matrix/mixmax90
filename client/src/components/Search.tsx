@@ -70,7 +70,7 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
       });
     });
     let res = result.slice(0, 31);
-    console.log(res);
+    // console.log(res);
     return res;
   };
 

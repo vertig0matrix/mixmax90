@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const { Schema } = require('mongoose');
-const imageSchema = new Schema({
-    height: Number,
-    url: String,
-    width: Number,
+const mongoose_1 = require("mongoose");
+const imageSchema = new mongoose_1.Schema({
+    height: { type: Number },
+    url: { type: String },
+    width: { type: Number },
 });
-module.exports = imageSchema;
+exports.default = imageSchema;

@@ -29,7 +29,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
   topTracks,
   artistId
 }) => {
-  console.log(topTracks)
+  // console.log(topTracks)
   function handleClick(artistId: string) {
     setTopTracks([]);
     handleRelatedArtistData(artistId);
