@@ -38,7 +38,6 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
   }
 
   async function handleRelatedArtistData(id: string): Promise<void> {
-
     setArtistId(id);
     const artistData: ArtistResponseObject = await getRelatedArtistData(id);
     const artistIds: string[] = getArtistIds(artistData);
@@ -46,7 +45,7 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
     setTopTracks(randomTracks);
-    addTopTracksToDB(randomTracks)
+    addTopTracksToDB(randomTracks);
     setHeartColor("#eee");
   };
 
