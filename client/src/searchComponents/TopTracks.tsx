@@ -60,7 +60,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
           <ul className="top-tracks-ul">
             {topTracks.map((track, index) => (
               <li>
-                <TrackItem track={track} index={index} key={index} />
+                <TrackItem track={track} index={track.id} />
               </li>
             ))}
           </ul>
