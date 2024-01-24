@@ -31,19 +31,19 @@ export const TopTracks: React.FC<TopTracksProps> = ({
   artistId
 }) => {
 
-  const [saved, setSaved] = useState("")
+  const [status, setStatus] = useState("")
 
   function handleClick(artistId: string) {
     setTopTracks([]);
     setSearchResult([]);
     setShowTopTracks(true);
     addTopTracksToDB(topTracks)
-    setSaved("Saved ❤️")
+    setStatus("Saved ❤️")
   };
 
   function handleReloadClick() {
     handleRelatedArtistData(artistId);
-
+    setStatus("New Playlist Generated")
   }
 
   return (
@@ -58,7 +58,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
             >
               <TbReload></TbReload>
             </div>
-            <div className="top-tracks-title">{saved}</div>
+            <div className="top-tracks-title">{status}</div>
             <GoHeart
               className="top-tracks-ul-title-container-icon"
               id="heart"
