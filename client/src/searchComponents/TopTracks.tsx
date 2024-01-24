@@ -5,6 +5,7 @@ import { TbReload } from "react-icons/tb";
 import { GoHeart } from "react-icons/go";
 import TrackItem from "./TrackItem.tsx";
 import { Track } from "../Interfaces/track.interface.ts";
+import { addTopTracksToDB } from "../components/apiServices.js";
 
 export interface TopTracksProps {
   showTopTracks: boolean,
@@ -29,12 +30,13 @@ export const TopTracks: React.FC<TopTracksProps> = ({
   topTracks,
   artistId
 }) => {
-  console.log(topTracks)
+
   function handleClick(artistId: string) {
     setTopTracks([]);
     handleRelatedArtistData(artistId);
     setSearchResult([]);
     setShowTopTracks(true);
+    addTopTracksToDB(topTracks)
   };
 
   return (

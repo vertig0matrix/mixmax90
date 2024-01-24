@@ -1,6 +1,7 @@
 'use strict'
 
 import { Track } from "../Interfaces/track.interface.ts";
+import { addTopTracksToDB } from "../components/apiServices.js";
 
 interface SearchListProps {
   searchResult: [],

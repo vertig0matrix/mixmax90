@@ -19,15 +19,14 @@ const Collection = () => {
 
   let index = 0;
 
-  console.log(library)
   return (
-    <main>
+    <div>
       <div className='collection-title'>Collection</div>
       {library && library.map((playlist) => (
         <SavedPlaylist playlist={playlist} key={index++} />
 
-      ))};
-    </main>
+      ))}
+    </div>
   )
 };
 
