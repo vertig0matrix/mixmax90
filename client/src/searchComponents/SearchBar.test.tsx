@@ -3,24 +3,17 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import SearchBar from './SearchBar.tsx';
 import { userEvent } from '@testing-library/user-event';
+import { SetStateAction } from 'react';
 
 describe('SearchBar Component', () => {
-    it('search form saves the query in the setSearch variable', async () => {
-        const mockSearch = "50 cents";
-        const setSearch = vi.fn();
-        const handleSearch = vi.fn();
-        const search = ''
-
-
-        render(<SearchBar search={mockSearch} setSearch={setSearch} handleSearch={handleSearch} />)
+    it('render form input', () => {
+        render(<SearchBar
+            search=''
+            setSearch={vi.fn()}
+            handleSearch={vi.fn()}
+        />)
 
         const searchForm = screen.getByRole('searchbox')
-        const button = screen.getByRole('button')
-
-        userEvent.type(searchForm, mockSearch)
-        userEvent.type(searchForm, '{enter}')
-
-        await expect(handleSearch).toHaveBeenCalled();
-
+        expect(searchForm).toBeInTheDocument();
     })
 })

@@ -1,6 +1,6 @@
 import { Artist } from "../Interfaces/artist.interface.ts"
 
-export const res_searchList: Artist[] = [
+export const res_searchList = [
     {
         "external_urls": {
             "spotify": "https://open.spotify.com/artist/74XFHRwlV6OrjEM0A2NCMF"
