@@ -35,10 +35,15 @@ export const TopTracks: React.FC<TopTracksProps> = ({
 
   const [status, setStatus] = useState("")
 <<<<<<< HEAD:client/src/searchComponents/GeneratedPlaylist.tsx
+<<<<<<< HEAD:client/src/searchComponents/GeneratedPlaylist.tsx
   const [show, setShow] = useState(false);
   const [blur, setBlur] = useState(false);
 
   function handleHeartClick(artistId: string) {
+=======
+
+  function handleClick(artistId: string) {
+>>>>>>> parent of e980e98 (feature modal):client/src/searchComponents/TopTracks.tsx
 =======
 
   function handleClick(artistId: string) {
@@ -73,7 +78,11 @@ export const TopTracks: React.FC<TopTracksProps> = ({
               id="heart"
               style={{ color: heartColor }}
 <<<<<<< HEAD:client/src/searchComponents/GeneratedPlaylist.tsx
+<<<<<<< HEAD:client/src/searchComponents/GeneratedPlaylist.tsx
               onClick={() => handleHeartClick(artistId)}
+=======
+              onClick={() => handleClick(artistId)}
+>>>>>>> parent of e980e98 (feature modal):client/src/searchComponents/TopTracks.tsx
 =======
               onClick={() => handleClick(artistId)}
 >>>>>>> parent of e980e98 (feature modal):client/src/searchComponents/TopTracks.tsx
