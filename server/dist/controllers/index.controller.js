@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.savePlaylist = exports.getPlaylist = void 0;
-const topTracksModel_models_1 = __importDefault(require("../models/topTracksModel.models"));
+const generatedPlaylistModel_models_1 = __importDefault(require("../models/generatedPlaylistModel.models"));
 function getPlaylist(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newTopTracks = yield topTracksModel_models_1.default.find({});
+            const newTopTracks = yield generatedPlaylistModel_models_1.default.find({});
             res.status(200).send(newTopTracks);
         }
         catch (error) {
@@ -32,7 +32,8 @@ function savePlaylist(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const tracks = req.body;
-            yield topTracksModel_models_1.default.create({ tracks });
+            console.log(tracks);
+            yield generatedPlaylistModel_models_1.default.create({ tracks }); // {tracks:[...]}
             console.log('saved in the db 📩');
             res.status(201).json({ msg: 'tracks added' });
         }

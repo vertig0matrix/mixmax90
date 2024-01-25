@@ -16,12 +16,13 @@ const SavedPlaylist: React.FC<SavedPlaylistProps> = ({ playlist, name, setName }
     setOpen(!open);
   };
 
+  console.log(playlist)
   return (
     <div>
       <button onClick={toggle} >aaaa</button>
-      {open && 
-      playlist.tracks.map(track =>
-          <TrackItem track={track} key={track.id}/>  
+      {open &&
+        playlist.tracks.map(track =>
+          <TrackItem track={track} key={track.id} />
         )}
     </div>
   )

@@ -1,5 +1,5 @@
 import { test, vi, expect } from 'vitest'
-import { render, fireEvent, waitFor, screen } from '@testing-library/react'
+import { render, fireEvent, act, screen } from '@testing-library/react'
 import Search from './Search'
 import { searchForArtist, getRelatedArtistData, getArtistIds, getTopTracks, getRandomTracksByArtist } from './apiServices.js'
 
@@ -32,12 +32,12 @@ describe('Search Component', () => {
         )
         const setTopTracks = vi.fn()
 
-        render(<Search setArtistId="789" getRelatedArtistData={getRelatedArtistData} getArtistIds={getArtistIds} getTopTracks={getTopTracks} getRandomTracksByArtist={getRandomTracksByArtist} />)
+        render(<Search id="789" getRelatedArtistData={getRelatedArtistData} getArtistIds={getArtistIds} getTopTracks={getTopTracks} getRandomTracksByArtist={getRandomTracksByArtist} />)
 
-        fireEvent.submit(screen.getByRole('heartClick'))
-
-
-
-
+        act(() => {
+            fireEvent.click(screen.getAllByTestId('test-id')[0])
+            // expect(getRelatedArtistData).toHaveBeenCalledWith('789')
+        })
+        expect(setTopTracks).toHaveBeenCalledWith({ artists: [{ id: '123' }] }, { artists: [{ id: '456' }] })
     })
 })

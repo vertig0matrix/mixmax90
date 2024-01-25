@@ -40,6 +40,7 @@ export const SearchList: React.FC<SearchListProps> = ({
           className="artist-search-li"
           onClick={() => handleClick(artist)}
           key={index}
+          data-testid='test-id'
         >
           <div className="artist-search-thumb-container">
             {artist.images[2] && (

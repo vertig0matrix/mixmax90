@@ -8,7 +8,7 @@ interface CollectionProps {
   setName: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Collection: React.FC<CollectionProps> = ({name, setName}) => {
+const Collection: React.FC<CollectionProps> = ({ name, setName }) => {
 
   const [library, setLibrary] = useState<[]>([])
 

@@ -29,8 +29,8 @@ export interface Track {
 }
 
 const trackSchema: Schema = new Schema<Track>({
-    album:  {type: albumSchema},
-    artists: [artistSchema],
+    album: { type: albumSchema },
+    artists: { type: [artistSchema] },
     disc_number: { type: Number },
     duration_ms: { type: Number },
     explicit: { type: Boolean },

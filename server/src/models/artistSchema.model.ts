@@ -23,4 +23,4 @@ const artistSchema: Schema = new Schema<Artist>({
     uri: { type: String },
 });
 
-export default { artistSchema };
+export default artistSchema;

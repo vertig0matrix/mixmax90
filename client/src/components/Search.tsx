@@ -44,6 +44,7 @@ const Search: React.FC<SearchProps> = ({ name, setName, search, setSearch }) => 
     const artistData: ArtistResponseObject = await getRelatedArtistData(id);
     const artistIds: string[] = getArtistIds(artistData);
     const tracks: TracksResponse = await getTopTracks(artistIds);
+    console.log(tracks)
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
     setTopTracks(randomTracks);

@@ -7,7 +7,7 @@ const mongoose_1 = require("mongoose");
 const albumSchema_model_1 = __importDefault(require("./albumSchema.model"));
 const artistSchema_model_1 = __importDefault(require("./artistSchema.model"));
 const trackSchema = new mongoose_1.Schema({
-    album: { albumSchema: albumSchema_model_1.default },
+    album: { type: albumSchema_model_1.default },
     artists: [artistSchema_model_1.default],
     disc_number: { type: Number },
     duration_ms: { type: Number },
