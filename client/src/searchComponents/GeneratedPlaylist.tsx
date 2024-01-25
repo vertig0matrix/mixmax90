@@ -34,11 +34,8 @@ export const TopTracks: React.FC<TopTracksProps> = ({
 }) => {
 
   const [status, setStatus] = useState("")
-  const [show, setShow] = useState(false);
-  const [blur, setBlur] = useState(false);
-  const [name, setName] = useState("")
 
-  function handleClick(artistId: string, name: string) {
+  function handleClick(artistId: string) {
     setTopTracks([]);
     setSearchResult([]);
     setShowTopTracks(true);
@@ -68,7 +65,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
               className="top-tracks-ul-title-container-icon"
               id="heart"
               style={{ color: heartColor }}
-              onClick={() => handleClick(artistId, name)}
+              onClick={() => handleClick(artistId)}
             />
           </div>
           <ul className="top-tracks-ul">
