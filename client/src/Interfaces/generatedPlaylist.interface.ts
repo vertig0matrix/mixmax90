@@ -1,5 +1,6 @@
 import { Track } from './track.interface.ts'
 
-export interface TopTracks {
+export interface GeneratedPlaylist {
+  name: string
   tracks: Track[]
 }

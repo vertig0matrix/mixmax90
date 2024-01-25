@@ -1,11 +1,14 @@
 // TODO add to collection
 import { useEffect, useState } from 'react';
 import { getPlaylist } from "./apiServices.js";
-import { Track } from "../Interfaces/track.interface.ts";
 import SavedPlaylist from './SavedPlaylist.tsx';
 
+interface CollectionProps {
+  name: string,
+  setName: React.Dispatch<React.SetStateAction<string>>
+}
 
-const Collection = () => {
+const Collection: React.FC<CollectionProps> = ({name, setName}) => {
 
   const [library, setLibrary] = useState<[]>([])
 
@@ -23,7 +26,7 @@ const Collection = () => {
     <div>
       <div className='collection-title'>Collection</div>
       {library && library.map((playlist) => (
-        <SavedPlaylist playlist={playlist} key={index++} />
+        <SavedPlaylist name={name} setName={setName} playlist={playlist} key={index++} />
 
       ))}
     </div>

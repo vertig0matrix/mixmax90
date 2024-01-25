@@ -11,33 +11,34 @@ import ModalSave from "./Modal.tsx";
 export interface TopTracksProps {
   showTopTracks: boolean,
   heartColor: string,
-  heartClick: Function,
   setTopTracks: React.Dispatch<React.SetStateAction<Track[]>>,
   handleRelatedArtistData: Function,
   setSearchResult: React.Dispatch<React.SetStateAction<[]>>,
   setShowTopTracks: React.Dispatch<React.SetStateAction<boolean>>,
   topTracks: Track[],
   artistId: string
+  name: string,
+  setName: React.Dispatch<React.SetStateAction<string>>
 };
 
 export const TopTracks: React.FC<TopTracksProps> = ({
   showTopTracks,
   heartColor,
-  heartClick,
   setTopTracks,
   handleRelatedArtistData,
   setSearchResult,
   setShowTopTracks,
   topTracks,
-  artistId
+  artistId,
+  name,
+  setName
 }) => {
 
   const [status, setStatus] = useState("")
   const [show, setShow] = useState(false);
   const [blur, setBlur] = useState(false);
-  const [name, setName] = useState("")
 
-  function handleClick(artistId: string, name: string) {
+  function handleHeartClick(artistId: string) {
     setTopTracks([]);
     setSearchResult([]);
     setShowTopTracks(true);
@@ -70,7 +71,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
               className="top-tracks-ul-title-container-icon"
               id="heart"
               style={{ color: heartColor }}
-              onClick={() => handleClick(artistId, name)}
+              onClick={() => handleHeartClick(artistId)}
             />
           </div>
           <ul className="top-tracks-ul">

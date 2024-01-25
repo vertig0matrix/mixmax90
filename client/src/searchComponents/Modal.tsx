@@ -2,14 +2,10 @@ import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 
-
-
 export function ModalSave({show, blur, setShow, setBlur, setName}) {
 
-  // State set automatically to true, so modal appears on screen load.
   const [playlistName, setPlaylistName] = useState("")
-
-
+  
   const handleSave = () => {
     setShow(false);
     setBlur(false);

@@ -1,7 +1,7 @@
 import { describe, test, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import TopTracks from './TopTracks.tsx';
+import GeneratedPlaylist from './GeneratedPlaylist.tsx';
 import { res_obj } from '../Tests/MockObject.ts';
 
 
@@ -15,7 +15,7 @@ describe('TopTracks Component', () => {
     const setShowTopTracks = vi.fn();
     const MockObject = res_obj
 
-    render(<TopTracks showTopTracks={true}
+    render(<GeneratedPlaylist showTopTracks={true}
       onClick={handleClick}
       setTopTracks={setTopTracks}
       handleRelatedArtistData={handleRelatedArtistData}
