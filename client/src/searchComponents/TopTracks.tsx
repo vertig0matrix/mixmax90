@@ -6,6 +6,7 @@ import { GoHeart } from "react-icons/go";
 import TrackItem from "./TrackItem.tsx";
 import { Track } from "../Interfaces/track.interface.ts";
 import { addTopTracksToDB } from "../components/apiServices.js";
+import ModalSave from "./Modal.tsx";
 
 export interface TopTracksProps {
   showTopTracks: boolean,
@@ -32,13 +33,18 @@ export const TopTracks: React.FC<TopTracksProps> = ({
 }) => {
 
   const [status, setStatus] = useState("")
+  const [show, setShow] = useState(false);
+  const [blur, setBlur] = useState(false);
+  const [name, setName] = useState("")
 
-  function handleClick(artistId: string) {
+  function handleClick(artistId: string, name: string) {
     setTopTracks([]);
     setSearchResult([]);
     setShowTopTracks(true);
     addTopTracksToDB(topTracks)
     setStatus("Saved ❤️")
+    setShow(true);
+    setBlur(true)
   };
   
   function handleReloadClick() {
@@ -48,6 +54,7 @@ export const TopTracks: React.FC<TopTracksProps> = ({
 
   return (
     <div>
+      <ModalSave show={show} blur={blur} setShow={setShow} setBlur={setBlur} setName={setName}/>
       {showTopTracks && (
         <>
           <div className="top-tracks-ul-title-container">
@@ -63,13 +70,13 @@ export const TopTracks: React.FC<TopTracksProps> = ({
               className="top-tracks-ul-title-container-icon"
               id="heart"
               style={{ color: heartColor }}
-              onClick={() => handleClick(artistId)}
+              onClick={() => handleClick(artistId, name)}
             />
           </div>
           <ul className="top-tracks-ul">
             {topTracks.map((track, index) => (
               <li>
-                <TrackItem track={track} index={track.id} />
+                <TrackItem track={track} key={track.id} />
               </li>
             ))}
           </ul>
