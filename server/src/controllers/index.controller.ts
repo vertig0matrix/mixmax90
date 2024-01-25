@@ -17,12 +17,8 @@ export async function getPlaylist(req: Request, res: Response): Promise<void> {
 export async function savePlaylist(req: Request, res: Response): Promise<void> {
   try {
     const tracks = req.body;
-<<<<<<< HEAD
     console.log(tracks)
-    await generatedPlaylistModel.create({ tracks }) // {tracks:[...]}
-=======
-    await topTracksModel.create({ tracks })
->>>>>>> parent of 1d5d8ce (fix: track schema to include album)
+    await topTracksModel.create({ tracks }) // {tracks:[...]}
     console.log('saved in the db 📩')
     res.status(201).json({ msg: 'tracks added' });
   } catch (error) {
