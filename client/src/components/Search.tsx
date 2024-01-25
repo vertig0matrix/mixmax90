@@ -3,15 +3,17 @@
 // TODO fix heart icon functionality
 
 import { useState } from "react";
-import { searchForArtist, getTopTracks, addTopTracksToDB, getRelatedArtistData } from "./apiServices.js";
+import { searchForArtist, getTopTracks, getRelatedArtistData } from "./apiServices.js";
 import SearchBar from "../searchComponents/SearchBar.tsx"
 import SearchList from "../searchComponents/SearchList.tsx"
-import TopTracks from "../searchComponents/TopTracks.tsx";
+import GeneratedPlaylist from "../searchComponents/GeneratedPlaylist.tsx";
 import { ArtistResponseObject } from "../Interfaces/artist.interface.ts"
-import { Track, TracksResponse, TracksWrapper } from "../Interfaces/track.interface.ts";
+import { Track, TracksResponse } from "../Interfaces/track.interface.ts";
 
 
 interface SearchProps {
+  name: string,
+  setName: React.Dispatch<React.SetStateAction<string>>,
   search: string,
   setSearch: React.Dispatch<React.SetStateAction<string>>
 }
@@ -22,7 +24,7 @@ interface ArtistList {
   }
 }
 
-const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
+const Search: React.FC<SearchProps> = ({ name, setName, search, setSearch }) => {
   const [searchResult, setSearchResult] = useState<[]>([]);
   const [artistId, setArtistId] = useState<string>(null);
   const [topTracks, setTopTracks] = useState<Track[]>([]);
@@ -45,8 +47,6 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     const randomTracks: Track[] = getRandomTracksByArtist(tracks);
 
     setTopTracks(randomTracks);
-    console.log('🐈', topTracks)
-    // addTopTracksToDB(randomTracks)
 
   };
 
@@ -73,12 +73,6 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
     return res;
   };
 
-  const heartClick = (): void => {
-    setHeartColor("red");
-    console.log("Heart clicked! 6");
-  };
-
-
   return (
     <div>
       <SearchBar
@@ -95,16 +89,17 @@ const Search: React.FC<SearchProps> = ({ search, setSearch }) => {
         setShowTopTracks={setShowTopTracks}
       />
 
-      <TopTracks
+      <GeneratedPlaylist
         showTopTracks={showTopTracks}
         heartColor={heartColor}
-        heartClick={heartClick}
         setTopTracks={setTopTracks}
         handleRelatedArtistData={handleRelatedArtistData}
         setSearchResult={setSearchResult}
         setShowTopTracks={setShowTopTracks}
         topTracks={topTracks}
         artistId={artistId}
+        name={name}
+        setName={setName}
       />
     </div>
   );

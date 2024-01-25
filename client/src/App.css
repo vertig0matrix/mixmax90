@@ -17,9 +17,6 @@ body {
   background-color: rgb(59, 58, 58);
 }
 
-
-.player-container {}
-
 img {
   max-width: 100%;
   display: block;
@@ -255,6 +252,43 @@ a {
   font-size: small;
 }
 
-/* .titleBorder {
-    box-shadow: 0 4px 5px -2px rgba(145, 145, 145, 0.2);
+
+.modal-blur {
+  position: fixed;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 1030; 
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: absolute; 
+  background-color: aliceblue;
+  border-radius: 5px;
+  z-index: 1050; 
+  margin-top: 25vh;
+  background: radial-gradient(circle, rgba(126,124,163,1) 0%, rgba(0,212,255,1) 0%, rgba(73,222,178,1) 100%);
+}
+
+.modal-component {
+}
+
+.modaltitle {
+  display: flex;
+  justify-content: center;
+}
+
+.modalbuttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+
+.modaltext {
+  margin-left: 5px;
+  margin-right: 5px;
 }

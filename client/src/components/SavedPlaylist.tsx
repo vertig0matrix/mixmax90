@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { TopTracks } from "../Interfaces/topTracks.interface.ts";
-import { Track, TracksWrapper } from "../Interfaces/track.interface.ts";
+import { GeneratedPlaylist } from "../Interfaces/generatedPlaylist.interface.ts";
 import TrackItem from "../searchComponents/TrackItem.tsx";
 
 interface SavedPlaylistProps {
-  playlist: TopTracks
+  playlist: GeneratedPlaylist
+  name: string,
+  setName: React.Dispatch<React.SetStateAction<string>>
 }
 
-const SavedPlaylist: React.FC<SavedPlaylistProps> = ({ playlist }) => {
-  let PL = playlist.tracks
+const SavedPlaylist: React.FC<SavedPlaylistProps> = ({ playlist, name, setName }) => {
+
   const [open, setOpen] = useState(false);
 
   function toggle() {
-    setOpen(!open)
-  } 
+    setOpen(!open);
+  };
 
   return (
     <div>
-      <button onClick={toggle} >toggle</button>
+      <button onClick={toggle} >aaaa</button>
       {open && 
       playlist.tracks.map(track =>
-          <TrackItem track={track} index={track.id}/>  
+          <TrackItem track={track} key={track.id}/>  
         )}
     </div>
   )

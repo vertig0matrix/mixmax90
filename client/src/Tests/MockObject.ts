@@ -1,4 +1,4 @@
-import { TopTracks } from "../Interfaces/topTracks.interface.ts"
+import { TopTracks } from "../Interfaces/generatedPlaylist.interface.ts"
 
 export const res_obj: TopTracks[] = [
   {

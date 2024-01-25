@@ -3,13 +3,12 @@ import { Track } from "../Interfaces/track.interface.ts";
 
 interface TrackItemProps {
     track: Track,
-    index: string,
 }
 
-const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
+const TrackItem: React.FC<TrackItemProps> = ({ track }) => {
 
     return (
-        <div className="top-tracks-li" key={index}>
+        <div className="top-tracks-li" key={track.id}>
             <div className="top-tracks-thumb-container">
                 {track.album.images[2] && (
                     <img
