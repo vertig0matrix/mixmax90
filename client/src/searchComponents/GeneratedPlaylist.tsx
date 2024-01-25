@@ -6,7 +6,6 @@ import { GoHeart } from "react-icons/go";
 import TrackItem from "./TrackItem.tsx";
 import { Track } from "../Interfaces/track.interface.ts";
 import { addTopTracksToDB } from "../components/apiServices.js";
-import ModalSave from "./Modal.tsx";
 
 export interface TopTracksProps {
   showTopTracks: boolean,
@@ -35,17 +34,20 @@ export const TopTracks: React.FC<TopTracksProps> = ({
 }) => {
 
   const [status, setStatus] = useState("")
+<<<<<<< HEAD:client/src/searchComponents/GeneratedPlaylist.tsx
   const [show, setShow] = useState(false);
   const [blur, setBlur] = useState(false);
 
   function handleHeartClick(artistId: string) {
+=======
+
+  function handleClick(artistId: string) {
+>>>>>>> parent of e980e98 (feature modal):client/src/searchComponents/TopTracks.tsx
     setTopTracks([]);
     setSearchResult([]);
     setShowTopTracks(true);
     addTopTracksToDB(topTracks)
     setStatus("Saved ❤️")
-    setShow(true);
-    setBlur(true)
   };
   
   function handleReloadClick() {
@@ -55,7 +57,6 @@ export const TopTracks: React.FC<TopTracksProps> = ({
 
   return (
     <div>
-      <ModalSave show={show} blur={blur} setShow={setShow} setBlur={setBlur} setName={setName}/>
       {showTopTracks && (
         <>
           <div className="top-tracks-ul-title-container">
@@ -71,13 +72,17 @@ export const TopTracks: React.FC<TopTracksProps> = ({
               className="top-tracks-ul-title-container-icon"
               id="heart"
               style={{ color: heartColor }}
+<<<<<<< HEAD:client/src/searchComponents/GeneratedPlaylist.tsx
               onClick={() => handleHeartClick(artistId)}
+=======
+              onClick={() => handleClick(artistId)}
+>>>>>>> parent of e980e98 (feature modal):client/src/searchComponents/TopTracks.tsx
             />
           </div>
           <ul className="top-tracks-ul">
             {topTracks.map((track, index) => (
               <li>
-                <TrackItem track={track} key={track.id} />
+                <TrackItem track={track} index={track.id} />
               </li>
             ))}
           </ul>
